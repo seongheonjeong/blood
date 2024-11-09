@@ -18,9 +18,9 @@ public class JpaReservationRepository {
     public JpaReservationRepository(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
-    public List<Reservation> findByMemberName(String name) {
+    public List<Reservation> findByMemberName(String memberName) {
        return entityManager.createQuery("select R from Reservation R where R.member.name= :name",Reservation.class)
-               .setParameter("name",name)
+               .setParameter("name",memberName)
                .getResultList();
     }
     public List<Reservation> findAll() {

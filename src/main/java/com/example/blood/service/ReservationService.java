@@ -25,6 +25,7 @@ public class ReservationService {
                 .collect(Collectors.toList());
     }
 
+    //dto변환
     private ReservationDto convertDto(Reservation reservation) {
         return new ReservationDto(
                 reservation.getReservationId(),
@@ -34,13 +35,14 @@ public class ReservationService {
                 reservation.getEmployee().getName()
         );
     }
-    public List<ReservationDto> getResercationsfByMemberName(String memberName) {
+    //List를 Stream형으로 변경 -> Dto 변환 -> 다시 Stream에서 List로
+    public List<ReservationDto> getReservationsByMemberName(String memberName) {
         return jpaReservationRepository.findByMemberName(memberName).stream()
                 .map(this::convertDto)
                 .collect(Collectors.toList());
     }
 
-    public List<ReservationDto> getReservationsfByEmployeeName(String employeeName) {
+    public List<ReservationDto> getReservationsByEmployeeName(String employeeName) {
         return jpaReservationRepository.findByEmployeeName(employeeName).stream()
                 .map(this::convertDto)
                 .collect(Collectors.toList());
