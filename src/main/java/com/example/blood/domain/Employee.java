@@ -34,7 +34,12 @@ public class Employee {
 
     @Column(name = "주소")
     private String address;
+    //양방향 매핑
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+    private List<Reservation> reservationList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
+    private List<BloodDonationRecord> bloodDonationRecords = new ArrayList<>();
     public String getEmployeeId() {
         return employeeId;
     }
@@ -91,7 +96,12 @@ public class Employee {
         this.reservationList = reservationList;
     }
 
-    //양방향 매핑
-    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
-    private List<Reservation> reservationList = new ArrayList<>();
+    public List<BloodDonationRecord> getBloodDonationRecords() {
+        return bloodDonationRecords;
+    }
+
+    public void setBloodDonationRecords(List<BloodDonationRecord> bloodDonationRecords) {
+        this.bloodDonationRecords = bloodDonationRecords;
+    }
+
 }

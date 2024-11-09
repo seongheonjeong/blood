@@ -127,6 +127,11 @@ public class Member {
         this.lastDonationDate = lastDonationDate;
     }
 
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<Reservation> reservationList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<BloodDonationRecord> bloodDonationRecords = new ArrayList<>();
     public List<Reservation> getReservationList() {
         return reservationList;
     }
@@ -135,6 +140,12 @@ public class Member {
         this.reservationList = reservationList;
     }
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<Reservation> reservationList = new ArrayList<>();
+    public List<BloodDonationRecord> getBloodDonationRecords() {
+        return bloodDonationRecords;
+    }
+
+    public void setBloodDonationRecords(List<BloodDonationRecord> bloodDonationRecords) {
+        this.bloodDonationRecords = bloodDonationRecords;
+    }
+
 }
