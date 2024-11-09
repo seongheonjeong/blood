@@ -30,17 +30,17 @@ public class BloodDonationRecord {
     @Column(name = "헌혈일자")
     private LocalDate donationDate;
 
-    @Column(name = "헌혈종류", length = 20)
+    @Column(name = "헌혈종류")
     private String donationType;
 
     @Column(name = "헌혈량")
-    private Integer donationAmount;
+    private int donationAmount;
 
     @Column(name = "유효기간")
     private LocalDate expirationDate;
 
-    @Column(name = "종점종류", length = 20)
-    private String endpointType;
+    @Column(name = "증정품종류")
+    private String giveaway;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "헌혈릴레이ID")
