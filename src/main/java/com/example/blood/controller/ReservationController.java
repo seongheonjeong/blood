@@ -26,7 +26,7 @@ public class ReservationController {
     public List<ReservationDto> getAllReservations() {
         return reservationService.getAllReservations();
     }
-    //멤버(헌혈자)명별 조회
+    //멤버명별 조회
     @GetMapping(params = "memberName")
     public List<ReservationDto> getReservationsByMemberName(@RequestParam String memberName) {
         return reservationService.getReservationsByMemberName(memberName);
