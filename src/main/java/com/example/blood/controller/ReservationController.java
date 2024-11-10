@@ -1,9 +1,10 @@
 package com.example.blood.controller;
 
-import com.example.blood.domain.Reservation;
 import com.example.blood.dto.ReservationDto;
 import com.example.blood.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,19 +22,31 @@ public class ReservationController {
     public ReservationController(ReservationService reservationService) {
         this.reservationService = reservationService;
     }
-    //전체 조회
+
     @GetMapping
-    public List<ReservationDto> getAllReservations() {
-        return reservationService.getAllReservations();
+    public ResponseEntity<List<ReservationDto>> getAllReservations() {
+        List<ReservationDto> reservationDtoList = reservationService.getAllReservations();
+        if (reservationDtoList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(reservationDtoList, HttpStatus.OK);
     }
-    //멤버명별 조회
+
     @GetMapping(params = "memberName")
-    public List<ReservationDto> getReservationsByMemberName(@RequestParam String memberName) {
-        return reservationService.getReservationsByMemberName(memberName);
+    public ResponseEntity<List<ReservationDto>> getReservationsByMemberName(@RequestParam String memberName) {
+        List<ReservationDto> reservationDtoList = reservationService.getReservationsByMemberName(memberName);
+        if (reservationDtoList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(reservationDtoList, HttpStatus.OK);
     }
-    //직원명별 조회
+
     @GetMapping(params = "employeeName")
-    public List<ReservationDto> getReservationsByByEmployeeName(@RequestParam String employeeName) {
-        return reservationService.getReservationsByEmployeeName(employeeName);
+    public ResponseEntity<List<ReservationDto>> getReservationsByEmployeeName(@RequestParam String employeeName) {
+        List<ReservationDto> reservationDtoList = reservationService.getReservationsByEmployeeName(employeeName);
+        if (reservationDtoList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(reservationDtoList, HttpStatus.OK);
     }
 }

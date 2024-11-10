@@ -1,11 +1,13 @@
 package com.example.blood.controller;
 
-import com.example.blood.domain.BloodDonationRecord;
 import com.example.blood.dto.BloodDonationRecordDto;
 import com.example.blood.service.BloodDonationRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -19,17 +21,34 @@ public class BloodDonationRecordController {
     public BloodDonationRecordController(BloodDonationRecordService bloodDonationRecordService) {
         this.bloodDonationRecordService = bloodDonationRecordService;
     }
-    //전체검색(id들이아니라 이름으로 보이게),회원이름,헌혈릴레이회차로
+
+    // 전체 검색 (ID가 아닌 이름으로 보이게)
     @GetMapping
-    public List<BloodDonationRecordDto> getAllBloodDonationRecords() {
-        return bloodDonationRecordService.getAllBloodDonationRecords();
+    public ResponseEntity<List<BloodDonationRecordDto>> getAllBloodDonationRecords() {
+        List<BloodDonationRecordDto> bloodDonationRecordDtoList = bloodDonationRecordService.getAllBloodDonationRecords();
+        if (bloodDonationRecordDtoList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // 404 Not Found 상태로 응답
+        }
+        return new ResponseEntity<>(bloodDonationRecordDtoList, HttpStatus.OK); // 200 OK 상태로 응답
     }
+
+    // 회원 이름별 검색
     @GetMapping(params = "memberName")
-    public List<BloodDonationRecordDto> getBloodDonationRecordsByMemberName(String memberName) {
-        return bloodDonationRecordService.getBloodDonationRecordsByMemberName(memberName);
+    public ResponseEntity<List<BloodDonationRecordDto>> getBloodDonationRecordsByMemberName(@RequestParam String memberName) {
+        List<BloodDonationRecordDto> bloodDonationRecordDtoList = bloodDonationRecordService.getBloodDonationRecordsByMemberName(memberName);
+        if (bloodDonationRecordDtoList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // 404 Not Found 상태로 응답
+        }
+        return new ResponseEntity<>(bloodDonationRecordDtoList, HttpStatus.OK); // 200 OK 상태로 응답
     }
+
+    // 헌혈 릴레이 회차별 검색
     @GetMapping(params = "bloodDonationRelaySession")
-    public List<BloodDonationRecordDto> getBloodDonationRecordsByBloodDonationRelaySession(String bloodDonationRelaySession) {
-        return bloodDonationRecordService.getBloodDonationRecordsByBloodDonationRelaySession(bloodDonationRelaySession);
+    public ResponseEntity<List<BloodDonationRecordDto>> getBloodDonationRecordsByBloodDonationRelaySession(@RequestParam String bloodDonationRelaySession) {
+        List<BloodDonationRecordDto> bloodDonationRecordDtoList = bloodDonationRecordService.getBloodDonationRecordsByBloodDonationRelaySession(bloodDonationRelaySession);
+        if (bloodDonationRecordDtoList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // 404 Not Found 상태로 응답
+        }
+        return new ResponseEntity<>(bloodDonationRecordDtoList, HttpStatus.OK); // 200 OK 상태로 응답
     }
 }
