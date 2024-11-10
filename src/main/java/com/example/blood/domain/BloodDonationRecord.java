@@ -117,7 +117,7 @@ public class BloodDonationRecord {
     public Integer getDonationAmount() {
         return donationAmount;
     }
-
+  //,,,dsd
     public void setDonationAmount(Integer donationAmount) {
         this.donationAmount = donationAmount;
     }
