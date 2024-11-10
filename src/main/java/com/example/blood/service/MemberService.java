@@ -21,11 +21,11 @@ public class MemberService {
     }
     public List<MemberDto> getAllMembers() {
         return springDataJpaMemberRepository.findAll().stream()
-                .map(this::memberDto)
+                .map(this::convertDto)
                 .collect(Collectors.toList());
     }
 
-    private MemberDto memberDto(Member member) {
+    private MemberDto convertDto(Member member) {
         return new MemberDto(
                 member.getMemberId(),
                 member.getName(),
@@ -42,13 +42,13 @@ public class MemberService {
 
     public List<MemberDto> getMembersByMemberName(String memberName) {
         return springDataJpaMemberRepository.findByName(memberName).stream()
-                .map(this::memberDto)
+                .map(this::convertDto)
                 .collect(Collectors.toList());
     }
 
     public List<MemberDto> getMembersByPhoneNumber(String phoneNumber) {
         return springDataJpaMemberRepository.findByPhoneNumber(phoneNumber).stream()
-                .map(this::memberDto)
+                .map(this::convertDto)
                 .collect(Collectors.toList());
     }
 }

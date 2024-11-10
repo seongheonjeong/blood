@@ -9,9 +9,111 @@ public class BloodDonationRecordDto {
     private String employeeName;         // 담당 직원 이름
     private LocalDate donationDate;      // 헌혈일자
     private String donationType;         // 헌혈종류
-    private int donationAmount;      // 헌혈량
+    private Integer donationAmount;      // 헌혈량
     private LocalDate expirationDate;    // 유효기간
     private String giveaway;         // 증정품
     private String relayRound;          // 헌혈 릴레이 회차
     private String donationPatientName;  // 기부 환자 이름
+
+    public Long getDonationRecordId() {
+        return donationRecordId;
+    }
+
+    public void setDonationRecordId(Long donationRecordId) {
+        this.donationRecordId = donationRecordId;
+    }
+
+    public String getMemberName() {
+        return memberName;
+    }
+
+    public void setMemberName(String memberName) {
+        this.memberName = memberName;
+    }
+
+    public Long getDonationCertificateNumber() {
+        return donationCertificateNumber;
+    }
+
+    public void setDonationCertificateNumber(Long donationCertificateNumber) {
+        this.donationCertificateNumber = donationCertificateNumber;
+    }
+
+    public String getEmployeeName() {
+        return employeeName;
+    }
+
+    public void setEmployeeName(String employeeName) {
+        this.employeeName = employeeName;
+    }
+
+    public LocalDate getDonationDate() {
+        return donationDate;
+    }
+
+    public void setDonationDate(LocalDate donationDate) {
+        this.donationDate = donationDate;
+    }
+
+    public String getDonationType() {
+        return donationType;
+    }
+
+    public void setDonationType(String donationType) {
+        this.donationType = donationType;
+    }
+
+    public Integer getDonationAmount() {
+        return donationAmount;
+    }
+
+    public void setDonationAmount(Integer donationAmount) {
+        this.donationAmount = donationAmount;
+    }
+
+    public LocalDate getExpirationDate() {
+        return expirationDate;
+    }
+
+    public void setExpirationDate(LocalDate expirationDate) {
+        this.expirationDate = expirationDate;
+    }
+
+    public String getGiveaway() {
+        return giveaway;
+    }
+
+    public void setGiveaway(String giveaway) {
+        this.giveaway = giveaway;
+    }
+
+    public String getRelayRound() {
+        return relayRound;
+    }
+
+    public void setRelayRound(String relayRound) {
+        this.relayRound = relayRound;
+    }
+
+    public String getDonationPatientName() {
+        return donationPatientName;
+    }
+
+    public void setDonationPatientName(String donationPatientName) {
+        this.donationPatientName = donationPatientName;
+    }
+
+    public BloodDonationRecordDto(Long donationRecordId, String memberName, Long donationCertificateNumber, String employeeName, LocalDate donationDate, String donationType, int donationAmount, LocalDate expirationDate, String giveaway, String relayRound, String donationPatientName) {
+        this.donationRecordId = donationRecordId;
+        this.memberName = memberName;
+        this.donationCertificateNumber = donationCertificateNumber;
+        this.employeeName = employeeName;
+        this.donationDate = donationDate;
+        this.donationType = donationType;
+        this.donationAmount = donationAmount;
+        this.expirationDate = expirationDate;
+        this.giveaway = giveaway;
+        this.relayRound = relayRound;
+        this.donationPatientName = donationPatientName;
+    }
 }

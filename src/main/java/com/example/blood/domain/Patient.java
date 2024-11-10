@@ -35,7 +35,7 @@ public class Patient {
     @Column(name = "병명")
     private String diseaseName;
 
-    @OneToMany(mappedBy = "Patient", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private List<BloodDonationRecord> bloodDonationRecords = new ArrayList<>();
 
     public List<BloodDonationRecord> getBloodDonationRecords() {

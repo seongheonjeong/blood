@@ -16,13 +16,13 @@ public class BloodDonationRelay {
     @Id
     @Column(name="헌혈릴레이ID")
     private String bloodDonationRelayId;
-    @Column(name = "헌혈릴레이회차")
+    @Column(name = "헌혈릴레이회차",nullable = true)
     private String bloodDonationRelaySession;
     @Column(name = "시작일")
     private LocalDate start;
     @Column(name = "종료일")
     private LocalDate end;
-    @OneToMany(mappedBy = "BloodDonationRelay", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "bloodDonationRelay", cascade = CascadeType.ALL)
     private List<BloodDonationRecord> bloodDonationRecords = new ArrayList<>();
 
 
