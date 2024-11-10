@@ -27,7 +27,6 @@ public class JdbcTemplatePatientRepository {
             PatientDto patientDto = new PatientDto();
             patientDto.setPatientId(rs.getString("환자ID"));
             patientDto.setName(rs.getString("이름"));
-            String birthDateString = rs.getString("생년월일");
             java.sql.Date birthDateSql = rs.getDate("생년월일"); // 시간정보 없애기
             if (birthDateSql != null) {
                 patientDto.setBirth(birthDateSql.toLocalDate()); // LocalDate로 변환(dto 멤버변수 형식 맞춰줌)
