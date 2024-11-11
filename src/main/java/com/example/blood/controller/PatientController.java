@@ -24,9 +24,9 @@ public class PatientController {
     public ResponseEntity<List<PatientDto>> getAllPatients() {
         List<PatientDto> patientDtoList = patientService.getAllPatients();
         if (patientDtoList.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // 404 Not Found 상태로 응답
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(patientDtoList, HttpStatus.OK); // 200 OK 상태로 응답
+        return new ResponseEntity<>(patientDtoList, HttpStatus.OK);
     }
 
     // 이름으로 조회
@@ -34,9 +34,9 @@ public class PatientController {
     public ResponseEntity<List<PatientDto>> getPatientsByPatientName(@RequestParam String patientName) {
         List<PatientDto> patientDtoList = patientService.getPatientsByPatientName(patientName);
         if (patientDtoList.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // 404 Not Found 상태로 응답
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(patientDtoList, HttpStatus.OK); // 200 OK 상태로 응답
+        return new ResponseEntity<>(patientDtoList, HttpStatus.OK);
     }
 
     // 병명으로 조회
@@ -44,8 +44,8 @@ public class PatientController {
     public ResponseEntity<List<PatientDto>> getPatientsByDiseaseName(@RequestParam String diseaseName) {
         List<PatientDto> patients = patientService.getPatientsByDiseaseName(diseaseName);
         if (patients.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // 404 Not Found 상태로 응답
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(patients, HttpStatus.OK); // 200 OK 상태로 응답
+        return new ResponseEntity<>(patients, HttpStatus.OK);
     }
 }

@@ -11,23 +11,22 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Transactional
+@Transactional //트랜잭션 관리
 @Service
 public class BloodDonationRecordService {
     private final JpaBloodDonationRecordRepository jpaBloodDonationRecordRepository;
     private final SpringDataJpaMemberRepository springDataJpaMemberRepository;
     private final SpringDataJpaEmployeeRepository springDataJpaEmployeeRepository;
 
-    private final SpringDataJpaBloodDonationRelay springDataJpaBloodDonationRelay;
     private final JdbcPatientRepository jdbcPatientRepository;
     @Autowired
     public BloodDonationRecordService(JpaBloodDonationRecordRepository jpaBloodDonationRecordRepository, SpringDataJpaMemberRepository springDataJpaMemberRepository, SpringDataJpaEmployeeRepository springDataJpaEmployeeRepository, SpringDataJpaBloodDonationRelay springDataJpaBloodDonationRelay, JdbcPatientRepository jdbcPatientRepository) {
         this.jpaBloodDonationRecordRepository = jpaBloodDonationRecordRepository;
         this.springDataJpaMemberRepository = springDataJpaMemberRepository;
         this.springDataJpaEmployeeRepository = springDataJpaEmployeeRepository;
-        this.springDataJpaBloodDonationRelay = springDataJpaBloodDonationRelay;
         this.jdbcPatientRepository = jdbcPatientRepository;
     }
+
     public BloodDonationRecordDto convertDto(BloodDonationRecord bloodDonationRecord) {
         return new BloodDonationRecordDto(
                 bloodDonationRecord.getDonationRecordId(),

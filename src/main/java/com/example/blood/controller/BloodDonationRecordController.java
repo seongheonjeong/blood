@@ -25,9 +25,9 @@ public class BloodDonationRecordController {
     public ResponseEntity<List<BloodDonationRecordDto>> getAllBloodDonationRecords() {
         List<BloodDonationRecordDto> bloodDonationRecordDtoList = bloodDonationRecordService.getAllBloodDonationRecords();
         if (bloodDonationRecordDtoList.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // 404 Not Found 상태로 응답
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(bloodDonationRecordDtoList, HttpStatus.OK); // 200 OK 상태로 응답
+        return new ResponseEntity<>(bloodDonationRecordDtoList, HttpStatus.OK);
     }
 
     // 회원 이름별 검색
@@ -35,9 +35,9 @@ public class BloodDonationRecordController {
     public ResponseEntity<List<BloodDonationRecordDto>> getBloodDonationRecordsByMemberName(@RequestParam String memberName) {
         List<BloodDonationRecordDto> bloodDonationRecordDtoList = bloodDonationRecordService.getBloodDonationRecordsByMemberName(memberName);
         if (bloodDonationRecordDtoList.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND); // 404 Not Found 상태로 응답
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(bloodDonationRecordDtoList, HttpStatus.OK); // 200 OK 상태로 응답
+        return new ResponseEntity<>(bloodDonationRecordDtoList, HttpStatus.OK);
     }
     // 헌혈 릴레이 회차별 검색
     @GetMapping(params = "bloodDonationRelaySession")
@@ -55,7 +55,6 @@ public class BloodDonationRecordController {
             bloodDonationRecordService.addBloodDonationRecord(inputBloodDonationRecordDto);
             return new ResponseEntity<>("successfully.", HttpStatus.CREATED);
         } catch (Exception e) {
-            // 예외가 발생한 경우, 500 Internal Server Error 응답 반환
             return new ResponseEntity<>("Failed", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
