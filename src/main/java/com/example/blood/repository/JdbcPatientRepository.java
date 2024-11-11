@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class JdbcPatientRepository {
@@ -21,6 +22,45 @@ public class JdbcPatientRepository {
     @Autowired
     public JdbcPatientRepository(DataSource dataSource) {
         this.dataSource = dataSource;
+    }
+    public Optional<PatientDto> findById(String id) {
+        String sql = "select * from 환우 where 환자ID = ?";
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
+
+        try {
+            connection = getConnection();
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, id);
+            rs = preparedStatement.executeQuery();
+
+            if (rs.next()) {
+                PatientDto patientDto = new PatientDto();
+                patientDto.setPatientId(rs.getString("환자ID"));
+                patientDto.setName(rs.getString("이름"));
+
+                java.sql.Date birthDateSql = rs.getDate("생년월일");
+                if (birthDateSql != null) {
+                    patientDto.setBirth(birthDateSql.toLocalDate());
+                }
+
+                patientDto.setPhoneNumber(rs.getString("휴대폰번호"));
+                patientDto.setGender(rs.getString("성별"));
+                patientDto.setHospitalName(rs.getString("병원이름"));
+                patientDto.setDiseaseName(rs.getString("병명"));
+
+                return Optional.of(patientDto);
+            }
+
+            return Optional.empty();
+
+        } catch (Exception e) {
+            throw new IllegalStateException(e);
+
+        } finally {
+            close(connection, preparedStatement, rs);
+        }
     }
     public List<PatientDto> findByDiseaseName(String diseaseName) {
         String sql = "select * from 환우 where 병명= ?";

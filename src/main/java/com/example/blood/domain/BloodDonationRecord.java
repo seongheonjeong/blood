@@ -8,9 +8,15 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "헌혈기록")
+@SequenceGenerator(
+        name = "donationRecordSeq",
+        sequenceName = "donation_record_sequence", //오라클 시퀀스명
+        initialValue = 10000170,
+        allocationSize = 1
+)
 public class BloodDonationRecord {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "donationRecordSeq")
     @Column(name = "헌혈기록번호")
     private Long donationRecordId;
 
@@ -117,7 +123,6 @@ public class BloodDonationRecord {
     public Integer getDonationAmount() {
         return donationAmount;
     }
-  //,,,dsd
     public void setDonationAmount(Integer donationAmount) {
         this.donationAmount = donationAmount;
     }

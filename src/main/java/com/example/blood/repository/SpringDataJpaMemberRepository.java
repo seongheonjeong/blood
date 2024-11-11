@@ -10,6 +10,7 @@ import java.util.List;
 @Repository
 public interface SpringDataJpaMemberRepository extends JpaRepository<Member, Long> {
     List<Member> findByName(String name);
+    Member findFirstByMemberId(String memberId);
     List<Member> findByPhoneNumber(String phoneNumber);
 
 }
