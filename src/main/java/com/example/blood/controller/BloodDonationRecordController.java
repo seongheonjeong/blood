@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/BloodDonationRecord")
+@RequestMapping("/bloodDonationRecord")
 public class BloodDonationRecordController {
     private final BloodDonationRecordService bloodDonationRecordService;
 

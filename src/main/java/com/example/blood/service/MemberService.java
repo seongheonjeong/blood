@@ -1,10 +1,8 @@
 package com.example.blood.service;
 
 import com.example.blood.domain.Member;
-import com.example.blood.domain.Reservation;
 import com.example.blood.dto.MemberDto;
-import com.example.blood.dto.ReservationDto;
-import com.example.blood.repository.SpringDataJpaMemberRepository;
+import com.example.blood.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,14 +11,15 @@ import java.util.stream.Collectors;
 
 @Service
 public class MemberService {
-    private final SpringDataJpaMemberRepository springDataJpaMemberRepository;
+    private final MemberRepository memberRepository;
 
     @Autowired
-    public MemberService(SpringDataJpaMemberRepository springDataJpaMemberRepository) {
-        this.springDataJpaMemberRepository = springDataJpaMemberRepository;
+    public MemberService(MemberRepository memberRepository) {
+        this.memberRepository = memberRepository;
     }
+
     public List<MemberDto> getAllMembers() {
-        return springDataJpaMemberRepository.findAll().stream()
+        return memberRepository.findAll().stream()
                 .map(this::convertDto)
                 .collect(Collectors.toList());
     }
@@ -41,13 +40,13 @@ public class MemberService {
     }
 
     public List<MemberDto> getMembersByMemberName(String memberName) {
-        return springDataJpaMemberRepository.findByName(memberName).stream()
+        return memberRepository.findByName(memberName).stream()
                 .map(this::convertDto)
                 .collect(Collectors.toList());
     }
 
     public List<MemberDto> getMembersByPhoneNumber(String phoneNumber) {
-        return springDataJpaMemberRepository.findByPhoneNumber(phoneNumber).stream()
+        return memberRepository.findByPhoneNumber(phoneNumber).stream()
                 .map(this::convertDto)
                 .collect(Collectors.toList());
     }

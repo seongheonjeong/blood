@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public class JpaBloodDonationRecordRepository {
+public class JpaBloodDonationRecordRepository implements BloodDonationRecordRepository {
 
     @PersistenceContext
     private final EntityManager entityManager; //엔티티매니저 빈 등록
@@ -22,22 +22,24 @@ public class JpaBloodDonationRecordRepository {
         this.entityManager = entityManager;
     }
 
+    @Override
     public List<BloodDonationRecord> findAll() {
         return entityManager.createQuery("select B from BloodDonationRecord B", BloodDonationRecord.class)
                 .getResultList();
     }
+    @Override
     public List<BloodDonationRecord> findByMemberName(String memberName) {
         return entityManager.createQuery("select B from BloodDonationRecord B where B.member.name=:name ",BloodDonationRecord.class)
                 .setParameter("name",memberName)
                 .getResultList();
     }
-
+    @Override
     public List<BloodDonationRecord>findByBloodDonationRelaySession(String bloodDonationRelaySession) {
         return entityManager.createQuery("select B from BloodDonationRecord B where B.bloodDonationRelay.bloodDonationRelaySession=:bloodDonationRelaySession ",BloodDonationRecord.class)
                 .setParameter("bloodDonationRelaySession",bloodDonationRelaySession)
                 .getResultList();
     }
-
+    @Override
     public void save(BloodDonationRecord bloodDonationRecord) {
         StoredProcedureQuery storedProcedureQuery = entityManager.createStoredProcedureQuery("LAST_BDN2_PLUS_1 ");
         storedProcedureQuery.registerStoredProcedureParameter(1, Long.class, ParameterMode.OUT);

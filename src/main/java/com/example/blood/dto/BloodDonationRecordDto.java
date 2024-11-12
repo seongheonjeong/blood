@@ -12,7 +12,7 @@ public class BloodDonationRecordDto {
     private Integer donationAmount;      // 헌혈량
     private LocalDate expirationDate;    // 유효기간
     private String giveaway;         // 증정품
-    private String relayRound;          // 헌혈 릴레이 회차
+    private String bloodDonationRelaySession;          // 헌혈 릴레이 회차
     private String donationPatientName;  // 기부 환자 이름
 
     public Long getDonationRecordId() {
@@ -87,12 +87,12 @@ public class BloodDonationRecordDto {
         this.giveaway = giveaway;
     }
 
-    public String getRelayRound() {
-        return relayRound;
+    public String getBloodDonationRelaySession() {
+        return bloodDonationRelaySession;
     }
 
-    public void setRelayRound(String relayRound) {
-        this.relayRound = relayRound;
+    public void setBloodDonationRelaySession(String bloodDonationRelaySession) {
+        this.bloodDonationRelaySession = bloodDonationRelaySession;
     }
 
     public String getDonationPatientName() {
@@ -103,7 +103,7 @@ public class BloodDonationRecordDto {
         this.donationPatientName = donationPatientName;
     }
 
-    public BloodDonationRecordDto(Long donationRecordId, String memberName, Long donationCertificateNumber, String employeeName, LocalDate donationDate, String donationType, int donationAmount, LocalDate expirationDate, String giveaway, String relayRound, String donationPatientName) {
+    public BloodDonationRecordDto(Long donationRecordId, String memberName, Long donationCertificateNumber, String employeeName, LocalDate donationDate, String donationType, int donationAmount, LocalDate expirationDate, String giveaway, String bloodDonationRelaySession, String donationPatientName) {
         this.donationRecordId = donationRecordId;
         this.memberName = memberName;
         this.donationCertificateNumber = donationCertificateNumber;
@@ -113,7 +113,7 @@ public class BloodDonationRecordDto {
         this.donationAmount = donationAmount;
         this.expirationDate = expirationDate;
         this.giveaway = giveaway;
-        this.relayRound = relayRound;
+        this.bloodDonationRelaySession = bloodDonationRelaySession;
         this.donationPatientName = donationPatientName;
     }
 }

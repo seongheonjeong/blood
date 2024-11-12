@@ -14,19 +14,24 @@ import java.util.stream.Collectors;
 @Transactional //트랜잭션 관리
 @Service
 public class BloodDonationRecordService {
+    private final BloodDonationRecordRepository bloodDonationRecordRepository;
     private final JpaBloodDonationRecordRepository jpaBloodDonationRecordRepository;
-    private final SpringDataJpaMemberRepository springDataJpaMemberRepository;
+
+    private final MemberRepository memberRepository;
+    private final PatientRepository patientRepository;
     private final SpringDataJpaEmployeeRepository springDataJpaEmployeeRepository;
 
-    private final JdbcPatientRepository jdbcPatientRepository;
+
     @Autowired
-    public BloodDonationRecordService(JpaBloodDonationRecordRepository jpaBloodDonationRecordRepository, SpringDataJpaMemberRepository springDataJpaMemberRepository, SpringDataJpaEmployeeRepository springDataJpaEmployeeRepository, SpringDataJpaBloodDonationRelay springDataJpaBloodDonationRelay, JdbcPatientRepository jdbcPatientRepository) {
+    public BloodDonationRecordService(BloodDonationRecordRepository bloodDonationRecordRepository, JpaBloodDonationRecordRepository jpaBloodDonationRecordRepository,SpringDataJpaEmployeeRepository springDataJpaEmployeeRepository, SpringDataJpaBloodDonationRelay springDataJpaBloodDonationRelay,  MemberRepository memberRepository, PatientRepository patientRepository) {
+        this.bloodDonationRecordRepository = bloodDonationRecordRepository;
         this.jpaBloodDonationRecordRepository = jpaBloodDonationRecordRepository;
-        this.springDataJpaMemberRepository = springDataJpaMemberRepository;
         this.springDataJpaEmployeeRepository = springDataJpaEmployeeRepository;
-        this.jdbcPatientRepository = jdbcPatientRepository;
+        this.memberRepository = memberRepository;
+        this.patientRepository = patientRepository;
     }
 
+    //BloodDonationRecord=>BloodDonationRecordDto로 변환
     public BloodDonationRecordDto convertDto(BloodDonationRecord bloodDonationRecord) {
         return new BloodDonationRecordDto(
                 bloodDonationRecord.getDonationRecordId(),
@@ -42,22 +47,25 @@ public class BloodDonationRecordService {
                 bloodDonationRecord.getPatient().getName()
         );
     }
+    //JPA 헌혈기록 전체조회
     public List<BloodDonationRecordDto> getAllBloodDonationRecords() {
-        return jpaBloodDonationRecordRepository.findAll().stream()
+        return bloodDonationRecordRepository.findAll().stream()
                 .map(this::convertDto)
                 .collect(Collectors.toList());
     }
+    //JPA 헌혈기록 회원이름으로 조회
     public List<BloodDonationRecordDto> getBloodDonationRecordsByMemberName(String memberName) {
-        return jpaBloodDonationRecordRepository.findByMemberName(memberName).stream()
+        return bloodDonationRecordRepository.findByMemberName(memberName).stream()
                 .map(this::convertDto)
                 .collect(Collectors.toList());
     }
-
+    //JPA 헌혈기록 헌혈회차별 조회
     public List<BloodDonationRecordDto> getBloodDonationRecordsByBloodDonationRelaySession(String bloodDonationRelaySession) {
-        return jpaBloodDonationRecordRepository.findByBloodDonationRelaySession(bloodDonationRelaySession).stream()
+        return bloodDonationRecordRepository.findByBloodDonationRelaySession(bloodDonationRelaySession).stream()
                 .map(this::convertDto)
                 .collect(Collectors.toList());
     }
+    //PatientDto를 Patient로 변환
     public Patient convertToPatient(PatientDto patientDto) {
         Patient patient = new Patient();
         patient.setPatientId(patientDto.getPatientId());
@@ -69,12 +77,12 @@ public class BloodDonationRecordService {
         patient.setDiseaseName(patientDto.getDiseaseName());
         return patient;
     }
+    //삽입 JPA 이용,수정할꺼임(JPA만이용할꺼)
     public void addBloodDonationRecord(RequestBloodDonationRecordDto inputBloodDonationRecordDto) {
 
-        Member member = springDataJpaMemberRepository.findFirstByMemberId(inputBloodDonationRecordDto.getMemberId());
+        Member member = memberRepository.findFirstByMemberId(inputBloodDonationRecordDto.getMemberId());
         Employee employee=springDataJpaEmployeeRepository.findFirstByEmployeeId(inputBloodDonationRecordDto.getEmployeeId());
-        PatientDto patientDto = jdbcPatientRepository.findById(inputBloodDonationRecordDto.getDonationPatientId()).orElse(null);
-        Patient patient = patientDto != null ? convertToPatient(patientDto) : null;
+        Patient patient = patientRepository.findById(inputBloodDonationRecordDto.getDonationPatientId()).orElse(null);
         BloodDonationRecord bloodDonationRecord=new BloodDonationRecord();
         bloodDonationRecord.setMember(member); //회원
         bloodDonationRecord.setEmployee(employee); //직원
