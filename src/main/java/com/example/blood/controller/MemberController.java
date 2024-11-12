@@ -52,7 +52,7 @@ public class MemberController {
             memberService.addMember(requestMemberDto);
             return new ResponseEntity<>("successfully.", HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity<>("Failed", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("failed", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
     @PutMapping(params = "memberId")
@@ -66,9 +66,9 @@ public class MemberController {
             @RequestParam(required = false) String address) {
         try {
             memberService.updateMember(memberId, name, birth, gender, bloodType, phoneNumber, address);
-            return new ResponseEntity<>("Successfully updated.", HttpStatus.OK); //204
+            return new ResponseEntity<>("successfully", HttpStatus.OK); //204
         } catch (Exception e) {
-            return new ResponseEntity<>("Failed", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("failed", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }

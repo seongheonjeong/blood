@@ -54,7 +54,7 @@ public class BloodDonationRecordController {
             bloodDonationRecordService.addBloodDonationRecord(inputBloodDonationRecordDto);
             return new ResponseEntity<>("successfully.", HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity<>("Failed", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("failed", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
     }
@@ -65,7 +65,7 @@ public class BloodDonationRecordController {
             bloodDonationRecordService.deleteBloodDonationRecord(bloodDonationRecordId);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
-            return new ResponseEntity<>("Failed", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("failed", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 }
