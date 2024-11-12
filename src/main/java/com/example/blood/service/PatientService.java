@@ -2,7 +2,6 @@ package com.example.blood.service;
 
 import com.example.blood.domain.Patient;
 import com.example.blood.dto.PatientDto;
-//import com.example.blood.repository.JdbcTemplatePatientRepository;
 import com.example.blood.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -48,4 +48,11 @@ public class JpaBloodDonationRecordRepository implements BloodDonationRecordRepo
         bloodDonationRecord.setDonationCertificateNumber(outParameter);
         entityManager.persist(bloodDonationRecord);
     }
+
+    @Override
+    public void deleteById(Long bloodDonationRecordId) {
+        entityManager.createQuery("DELETE FROM BloodDonationRecord B WHERE B.donationRecordId = :id")
+                .setParameter("id", bloodDonationRecordId)
+                .executeUpdate();
+    }
 }

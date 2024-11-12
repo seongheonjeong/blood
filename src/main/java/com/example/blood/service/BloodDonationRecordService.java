@@ -11,11 +11,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Transactional //트랜잭션 관리
 @Service
 public class BloodDonationRecordService {
     private final BloodDonationRecordRepository bloodDonationRecordRepository;
-    private final JpaBloodDonationRecordRepository jpaBloodDonationRecordRepository;
 
     private final MemberRepository memberRepository;
     private final PatientRepository patientRepository;
@@ -23,9 +21,8 @@ public class BloodDonationRecordService {
 
 
     @Autowired
-    public BloodDonationRecordService(BloodDonationRecordRepository bloodDonationRecordRepository, JpaBloodDonationRecordRepository jpaBloodDonationRecordRepository,SpringDataJpaEmployeeRepository springDataJpaEmployeeRepository, SpringDataJpaBloodDonationRelay springDataJpaBloodDonationRelay,  MemberRepository memberRepository, PatientRepository patientRepository) {
+    public BloodDonationRecordService(BloodDonationRecordRepository bloodDonationRecordRepository,SpringDataJpaEmployeeRepository springDataJpaEmployeeRepository, SpringDataJpaBloodDonationRelay springDataJpaBloodDonationRelay,  MemberRepository memberRepository, PatientRepository patientRepository) {
         this.bloodDonationRecordRepository = bloodDonationRecordRepository;
-        this.jpaBloodDonationRecordRepository = jpaBloodDonationRecordRepository;
         this.springDataJpaEmployeeRepository = springDataJpaEmployeeRepository;
         this.memberRepository = memberRepository;
         this.patientRepository = patientRepository;
@@ -77,6 +74,7 @@ public class BloodDonationRecordService {
         patient.setDiseaseName(patientDto.getDiseaseName());
         return patient;
     }
+    @Transactional //트랜잭션 관리
     //삽입 JPA 이용,수정할꺼임(JPA만이용할꺼)
     public void addBloodDonationRecord(RequestBloodDonationRecordDto inputBloodDonationRecordDto) {
 
@@ -91,6 +89,10 @@ public class BloodDonationRecordService {
         bloodDonationRecord.setDonationAmount(inputBloodDonationRecordDto.getDonationAmount());//헌혈량
         bloodDonationRecord.setGiveaway(inputBloodDonationRecordDto.getGiveaway()); //증점품종료
         bloodDonationRecord.setPatient(patient);
-        jpaBloodDonationRecordRepository.save(bloodDonationRecord);
+        bloodDonationRecordRepository.save(bloodDonationRecord);
+    }
+
+    public void deleteBloodDonationRecord(Long bloodDonationRecordId) {
+        bloodDonationRecordRepository.deleteById(bloodDonationRecordId);
     }
 }

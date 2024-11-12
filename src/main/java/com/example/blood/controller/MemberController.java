@@ -1,14 +1,12 @@
 package com.example.blood.controller;
 
 import com.example.blood.dto.MemberDto;
+import com.example.blood.dto.RequestMemberDto;
 import com.example.blood.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -47,5 +45,30 @@ public class MemberController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(memberDtoList, HttpStatus.OK);
+    }
+    @PostMapping
+    public ResponseEntity<String> addMember(@RequestBody RequestMemberDto requestMemberDto) {
+        try {
+            memberService.addMember(requestMemberDto);
+            return new ResponseEntity<>("successfully.", HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Failed", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @PutMapping(params = "memberId")
+    public ResponseEntity<String> updateMember(
+            @RequestParam String memberId,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String birth,
+            @RequestParam(required = false) String gender,
+            @RequestParam(required = false) String bloodType,
+            @RequestParam(required = false) String phoneNumber,
+            @RequestParam(required = false) String address) {
+        try {
+            memberService.updateMember(memberId, name, birth, gender, bloodType, phoneNumber, address);
+            return new ResponseEntity<>("Successfully updated.", HttpStatus.OK); //204
+        } catch (Exception e) {
+            return new ResponseEntity<>("Failed", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

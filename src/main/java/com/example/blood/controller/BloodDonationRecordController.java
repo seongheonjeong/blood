@@ -48,12 +48,22 @@ public class BloodDonationRecordController {
         }
         return new ResponseEntity<>(bloodDonationRecordDtoList, HttpStatus.OK);
     }
-
     @PostMapping
     public ResponseEntity<String> addBloodDonationRecord(@RequestBody RequestBloodDonationRecordDto inputBloodDonationRecordDto) {
         try {
             bloodDonationRecordService.addBloodDonationRecord(inputBloodDonationRecordDto);
             return new ResponseEntity<>("successfully.", HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Failed", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+    //헌혈기록번호를 통한 삭제
+    @DeleteMapping (params = "bloodDonationRecordId")
+    public ResponseEntity<String> deleteBloodDonationRecord(@RequestParam Long bloodDonationRecordId) {
+        try {
+            bloodDonationRecordService.deleteBloodDonationRecord(bloodDonationRecordId);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
             return new ResponseEntity<>("Failed", HttpStatus.INTERNAL_SERVER_ERROR);
         }

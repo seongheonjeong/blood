@@ -11,4 +11,6 @@ public interface MemberRepository {
     Member findFirstByMemberId(String memberId);
 
     List<Member> findByName(String memberName);
+
+    void save(Member member);
 }
