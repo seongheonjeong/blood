@@ -24,12 +24,12 @@ public class JpaBloodDonationRecordRepository implements BloodDonationRecordRepo
 
     @Override
     public List<BloodDonationRecord> findAll() {
-        return entityManager.createQuery("select B from BloodDonationRecord B", BloodDonationRecord.class)
+        return entityManager.createQuery("select B from BloodDonationRecord B order by  B.donationDate", BloodDonationRecord.class)
                 .getResultList();
     }
     @Override
     public List<BloodDonationRecord> findByMemberName(String memberName) {
-        return entityManager.createQuery("select B from BloodDonationRecord B where B.member.name=:name ",BloodDonationRecord.class)
+        return entityManager.createQuery("select B from BloodDonationRecord B where B.member.name=:name order by  B.donationDate ",BloodDonationRecord.class)
                 .setParameter("name",memberName)
                 .getResultList();
     }
@@ -39,6 +39,18 @@ public class JpaBloodDonationRecordRepository implements BloodDonationRecordRepo
                 .setParameter("bloodDonationRelaySession",bloodDonationRelaySession)
                 .getResultList();
     }
+    //
+    @Override
+    public List<Object[]> findGroupByDonationAmount() {
+        String sql = "SELECT 헌혈종류, 증정품종류, SUM(헌혈량) " +
+                     "FROM 헌혈기록 " +
+                     "GROUP BY ROLLUP(헌혈종류, 증정품종류) " +
+                     "ORDER BY SUM(헌혈량) ASC";
+
+        return entityManager.createNativeQuery(sql)
+                .getResultList();
+    }
+
     @Override
     public void save(BloodDonationRecord bloodDonationRecord) {
         StoredProcedureQuery storedProcedureQuery = entityManager.createStoredProcedureQuery("LAST_BDN2_PLUS_1 ");

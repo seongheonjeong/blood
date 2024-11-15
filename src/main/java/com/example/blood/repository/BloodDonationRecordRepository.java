@@ -7,6 +7,8 @@ public interface BloodDonationRecordRepository {
     List<BloodDonationRecord> findAll();
     List<BloodDonationRecord> findByMemberName(String memberName);
     List<BloodDonationRecord> findByBloodDonationRelaySession(String bloodDonationRelaySession);
+
+    List<Object[]> findGroupByDonationAmount();
     void save(BloodDonationRecord bloodDonationRecord);
     void deleteById(Long bloodDonationRecordId);
 }

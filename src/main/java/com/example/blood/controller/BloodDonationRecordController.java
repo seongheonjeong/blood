@@ -1,6 +1,7 @@
 package com.example.blood.controller;
 
 import com.example.blood.dto.BloodDonationRecordDto;
+import com.example.blood.dto.DonationAmountDto;
 import com.example.blood.dto.RequestBloodDonationRecordDto;
 import com.example.blood.service.BloodDonationRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class BloodDonationRecordController {
         this.bloodDonationRecordService = bloodDonationRecordService;
     }
 
-    // 전체 검색 (ID가 아닌 이름으로 보이게)
+    // 전체 검색 (ID가 아닌 이름으로 보이게) , 헌혈일자 기준 오름차순
     @GetMapping
     public ResponseEntity<List<BloodDonationRecordDto>> getAllBloodDonationRecords() {
         List<BloodDonationRecordDto> bloodDonationRecordDtoList = bloodDonationRecordService.getAllBloodDonationRecords();
@@ -30,7 +31,7 @@ public class BloodDonationRecordController {
         return new ResponseEntity<>(bloodDonationRecordDtoList, HttpStatus.OK);
     }
 
-    // 회원 이름별 검색
+    // 회원 이름별 검색 , 헌혈일자 기준 오름차순
     @GetMapping(params = "memberName")
     public ResponseEntity<List<BloodDonationRecordDto>> getBloodDonationRecordsByMemberName(@RequestParam String memberName) {
         List<BloodDonationRecordDto> bloodDonationRecordDtoList = bloodDonationRecordService.getBloodDonationRecordsByMemberName(memberName);
@@ -47,6 +48,15 @@ public class BloodDonationRecordController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(bloodDonationRecordDtoList, HttpStatus.OK);
+    }
+    //헌혈종류와 증정품종류별 총헌혈량 검색
+    @GetMapping("/bloodAmount")
+    public ResponseEntity<List<DonationAmountDto>>findGroupByDonationAmount() {
+        List<DonationAmountDto> donationAmountDtoList = bloodDonationRecordService.findGroupByDonationAmount();
+        if (donationAmountDtoList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(donationAmountDtoList, HttpStatus.OK);
     }
     @PostMapping
     public ResponseEntity<String> addBloodDonationRecord(@RequestBody RequestBloodDonationRecordDto inputBloodDonationRecordDto) {
