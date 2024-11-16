@@ -1,5 +1,6 @@
 package com.example.blood.controller;
 
+import com.example.blood.dto.BloodDonationRankingDto;
 import com.example.blood.dto.MemberDto;
 import com.example.blood.dto.RequestMemberDto;
 import com.example.blood.service.MemberService;
@@ -45,6 +46,15 @@ public class MemberController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(memberDtoList, HttpStatus.OK);
+    }
+    //헌혈횟수에 따른 랭킹 조회
+    @GetMapping("/ranking")
+    public ResponseEntity<List<BloodDonationRankingDto>>  getDonationRanking() {
+        List<BloodDonationRankingDto> bloodDonationRankingDtoList=memberService.getDonationRanking();
+        if(bloodDonationRankingDtoList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(bloodDonationRankingDtoList,HttpStatus.OK);
     }
     @PostMapping
     public ResponseEntity<String> addMember(@RequestBody RequestMemberDto requestMemberDto) {

@@ -28,7 +28,7 @@ public class JpaMemberRepository implements MemberRepository{
 
     @Override
     public List<Member> findAll() {
-        return entityManager.createQuery("SELECT m FROM Member m", Member.class)
+        return entityManager.createQuery("SELECT m FROM Member m order by m.memberId", Member.class)
                 .getResultList();
     }
 
@@ -44,6 +44,15 @@ public class JpaMemberRepository implements MemberRepository{
     public List<Member> findByName(String memberName) {
         return entityManager.createQuery("SELECT m FROM Member m WHERE m.name = :memberName", Member.class)
                 .setParameter("memberName", memberName)
+                .getResultList();
+    }
+
+    @Override
+    public List<Object[]> findBloodDonationRanking() {
+        String sql = "SELECT 회원id, 이름, 헌혈횟수, " +
+                     "DENSE_RANK() OVER (ORDER BY 헌혈횟수 DESC) AS 헌혈랭킹 " +
+                     "FROM 헌혈자";
+        return entityManager.createNativeQuery(sql)
                 .getResultList();
     }
 

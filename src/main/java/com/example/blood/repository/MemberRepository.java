@@ -12,5 +12,6 @@ public interface MemberRepository {
 
     List<Member> findByName(String memberName);
 
+     List<Object[]> findBloodDonationRanking();
     void save(Member member);
 }

@@ -1,8 +1,10 @@
 package com.example.blood.service;
 
 import com.example.blood.domain.Reservation;
+import com.example.blood.dto.ReservationCountDto;
 import com.example.blood.dto.ReservationDto;
 import com.example.blood.repository.JpaReservationRepository;
+import com.example.blood.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,15 +14,15 @@ import java.util.stream.Collectors;
 @Service
 public class ReservationService {
 
-    private final JpaReservationRepository jpaReservationRepository;
+    private final ReservationRepository reservationRepository;
 
     @Autowired
-    public ReservationService(JpaReservationRepository jpaReservationRepository) {
-        this.jpaReservationRepository = jpaReservationRepository;
+    public ReservationService(ReservationRepository reservationRepository) {
+        this.reservationRepository = reservationRepository;
     }
     public List<ReservationDto> getAllReservations() {
 
-        return jpaReservationRepository.findAll().stream()
+        return reservationRepository.findAll().stream()
                 .map(this::convertDto)
                 .collect(Collectors.toList());
     }
@@ -36,15 +38,20 @@ public class ReservationService {
         );
     }
     //List를 Stream형으로 변경 -> Dto 변환 -> 다시 Stream에서 List로
-    public List<ReservationDto> getReservationsByMemberName(String memberName) {
-        return jpaReservationRepository.findByMemberName(memberName).stream()
+    public List<ReservationDto> getReservationsByReservationStatus(String reservationStatus) {
+        return reservationRepository.findByReservationStatus(reservationStatus).stream()
                 .map(this::convertDto)
                 .collect(Collectors.toList());
     }
 
-    public List<ReservationDto> getReservationsByEmployeeName(String employeeName) {
-        return jpaReservationRepository.findByEmployeeName(employeeName).stream()
-                .map(this::convertDto)
+    public List<ReservationCountDto> getReservationCount() {
+        return reservationRepository.findReservationCount().stream()
+                .map(reservationCount -> new ReservationCountDto(
+                        (String) reservationCount[0],
+                        (String) reservationCount[1],
+                        ((Number) reservationCount[2]).intValue()
+                ))
                 .collect(Collectors.toList());
     }
+
 }

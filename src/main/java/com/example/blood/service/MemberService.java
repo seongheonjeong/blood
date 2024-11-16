@@ -1,6 +1,7 @@
 package com.example.blood.service;
 
 import com.example.blood.domain.Member;
+import com.example.blood.dto.BloodDonationRankingDto;
 import com.example.blood.dto.MemberDto;
 import com.example.blood.dto.RequestMemberDto;
 import com.example.blood.repository.MemberRepository;
@@ -50,6 +51,16 @@ public class MemberService {
         member.setPhoneNumber(requestMemberDto.getPhoneNumber());
         member.setAddress(requestMemberDto.getAddress());
         return member;
+    }
+    public List<BloodDonationRankingDto> getDonationRanking() {
+        return memberRepository.findBloodDonationRanking().stream()
+                .map(ranking -> new BloodDonationRankingDto(
+                        (String) ranking[0], // 회원id
+                        (String) ranking[1], // 이름
+                        ((Number) ranking[2]).intValue(), // 헌혈횟수
+                        ((Number) ranking[3]).intValue()  // 헌혈랭킹
+                ))
+                .collect(Collectors.toList());
     }
     public List<MemberDto> getMembersByMemberName(String memberName) {
         return memberRepository.findByName(memberName).stream()

@@ -1,5 +1,6 @@
 package com.example.blood.controller;
 
+import com.example.blood.dto.ReservationCountDto;
 import com.example.blood.dto.ReservationDto;
 import com.example.blood.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,21 +33,22 @@ public class ReservationController {
         return new ResponseEntity<>(reservationDtoList, HttpStatus.OK);
     }
 
-    @GetMapping(params = "memberName")
-    public ResponseEntity<List<ReservationDto>> getReservationsByMemberName(@RequestParam String memberName) {
-        List<ReservationDto> reservationDtoList = reservationService.getReservationsByMemberName(memberName);
+    //예약상태별 검색
+    @GetMapping(params = "reservationStatus")
+    public ResponseEntity<List<ReservationDto>> getReservationsByReservationStatus(@RequestParam String reservationStatus) {
+        List<ReservationDto> reservationDtoList = reservationService.getReservationsByReservationStatus(reservationStatus);
         if (reservationDtoList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(reservationDtoList, HttpStatus.OK);
     }
 
-    @GetMapping(params = "employeeName")
-    public ResponseEntity<List<ReservationDto>> getReservationsByEmployeeName(@RequestParam String employeeName) {
-        List<ReservationDto> reservationDtoList = reservationService.getReservationsByEmployeeName(employeeName);
-        if (reservationDtoList.isEmpty()) {
+    @GetMapping("/count")
+    public ResponseEntity<List<ReservationCountDto>> getReservationsByEmployeeName() {
+        List<ReservationCountDto> reservationCountDtoList = reservationService.getReservationCount();
+        if (reservationCountDtoList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(reservationDtoList, HttpStatus.OK);
+        return new ResponseEntity<>(reservationCountDtoList, HttpStatus.OK);
     }
 }
