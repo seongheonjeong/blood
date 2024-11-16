@@ -1,5 +1,6 @@
 package com.example.blood.controller;
 
+import com.example.blood.dto.DonationDetailsDto;
 import com.example.blood.dto.PatientDto;
 import com.example.blood.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,14 @@ public class PatientController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(patientDtoList, HttpStatus.OK);
+    }
+    @GetMapping("/details")
+    public ResponseEntity<List<DonationDetailsDto>> getDonationDetails() {
+        List<DonationDetailsDto> donationDetailsDtoList = patientService.getDonationDetails();
+        if (donationDetailsDtoList.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(donationDetailsDtoList, HttpStatus.OK);
     }
 
     // 병명으로 조회

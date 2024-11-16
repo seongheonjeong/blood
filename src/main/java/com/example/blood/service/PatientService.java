@@ -1,6 +1,7 @@
 package com.example.blood.service;
 
 import com.example.blood.domain.Patient;
+import com.example.blood.dto.DonationDetailsDto;
 import com.example.blood.dto.PatientDto;
 import com.example.blood.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,17 @@ public class PatientService {
         );
     }
 
-
+    public List<DonationDetailsDto> getDonationDetails() {
+        return patientRepository.findDonationDetails().stream()
+                .map(details -> new DonationDetailsDto(
+                        (Long) details[0],
+                        (String) details[1],
+                        (String) details[2],
+                        (String) details[3],
+                        (String) details[4]
+                ))
+                .collect(Collectors.toList());
+    }
     public List<PatientDto> getAllPatients() {
         return patientRepository.findAll().stream()
                 .map(this::convertToDto)

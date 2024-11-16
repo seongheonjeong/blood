@@ -43,4 +43,12 @@ public class JpaPatientRepository implements PatientRepository {
         return entityManager.createQuery("SELECT p FROM Patient p", Patient.class)
                 .getResultList();
     }
+
+    @Override
+    public List<Object[]> findDonationDetails() {
+        return entityManager.createQuery("SELECT B.donationCertificateNumber,B.member.memberId,B.member.name,B.patient.patientId,B.patient.name FROM BloodDonationRecord B", Object[].class)
+                .getResultList();
+    }
+
+
 }
