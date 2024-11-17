@@ -14,6 +14,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Transactional
 @Service
 public class BloodDonationRecordService {
     private final BloodDonationRecordRepository bloodDonationRecordRepository;
@@ -88,8 +89,6 @@ public class BloodDonationRecordService {
         patient.setDiseaseName(patientDto.getDiseaseName());
         return patient;
     }
-    @Transactional //트랜잭션 관리
-    //삽입 JPA 이용,수정할꺼임(JPA만이용할꺼)
     public void addBloodDonationRecord(RequestBloodDonationRecordDto inputBloodDonationRecordDto) {
 
         Member member = memberRepository.findFirstByMemberId(inputBloodDonationRecordDto.getMemberId());
@@ -109,7 +108,6 @@ public class BloodDonationRecordService {
     public void deleteBloodDonationRecord(Long bloodDonationRecordId) {
         bloodDonationRecordRepository.deleteById(bloodDonationRecordId);
     }
-    @Transactional
     public void updateDonationRecord(Long donationRecordId, String employeeId, LocalDate donationDate, String donationType, Integer donationAmount, String giveaway) {
         BloodDonationRecord bloodDonationRecord = bloodDonationRecordRepository.findById(donationRecordId);
         if (employeeId != null) {

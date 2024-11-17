@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 //클라이언트에게 응답 객체
-@NoArgsConstructor
+
 public class ReservationDto {
     private Long reservationId; //예약번호
 
@@ -15,6 +15,17 @@ public class ReservationDto {
     private String memberName;
     private String employeeName;
 
+
+    public ReservationDto() {
+    }
+
+    public ReservationDto(Long reservationId, LocalDateTime reservationDateTime, String reservationStatus, String memberName, String employeeName) {
+        this.reservationId = reservationId;
+        this.reservationDateTime = reservationDateTime;
+        this.reservationStatus = reservationStatus;
+        this.memberName = memberName;
+        this.employeeName = employeeName;
+    }
     public String getMemberName() {
         return memberName;
     }
@@ -30,15 +41,6 @@ public class ReservationDto {
     public void setEmployeeName(String employeeName) {
         this.employeeName = employeeName;
     }
-
-    public ReservationDto(Long reservationId, LocalDateTime reservationDateTime, String reservationStatus, String memberName, String employeeName) {
-        this.reservationId = reservationId;
-        this.reservationDateTime = reservationDateTime;
-        this.reservationStatus = reservationStatus;
-        this.memberName = memberName;
-        this.employeeName = employeeName;
-    }
-
     public Long getReservationId() {
         return reservationId;
     }

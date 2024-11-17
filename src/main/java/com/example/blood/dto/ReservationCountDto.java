@@ -1,5 +1,8 @@
 package com.example.blood.dto;
 
+import lombok.NoArgsConstructor;
+
+
 public class ReservationCountDto {
     private String employeeId;
 

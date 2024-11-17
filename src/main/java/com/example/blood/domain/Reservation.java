@@ -7,8 +7,7 @@ import java.time.LocalDateTime;
 
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Table(name = "예약내역")
 public class Reservation {
 
@@ -22,6 +21,17 @@ public class Reservation {
 
     @Column(name = "예약상태")
     private String reservationStatus;
+
+    public Reservation() {
+    }
+
+    public Reservation(Long reservationId, LocalDateTime reservationDateTime, String reservationStatus, Member member, Employee employee) {
+        this.reservationId = reservationId;
+        this.reservationDateTime = reservationDateTime;
+        this.reservationStatus = reservationStatus;
+        this.member = member;
+        this.employee = employee;
+    }
 
     public Long getReservationId() {
         return reservationId;

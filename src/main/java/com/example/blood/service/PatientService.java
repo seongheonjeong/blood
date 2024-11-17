@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Transactional
 @Service
 public class PatientService {
 
@@ -76,7 +77,6 @@ public class PatientService {
         Patient patient=convertToPatient(requestPatientDto);
         patientRepository.save(patient);
     }
-    @Transactional
     public void updatePatient(String patientId, String name, LocalDate birth, String phoneNumber, String gender, String hospitalName, String diseaseName) {
         Patient patient=patientRepository.findById(patientId).orElse(null);
         if (name != null)  patient.setName(name);

@@ -22,7 +22,7 @@ public class BloodDonationRecordController {
         this.bloodDonationRecordService = bloodDonationRecordService;
     }
 
-    // 전체 검색 (ID가 아닌 이름으로 보이게) , 헌혈일자 기준 오름차순
+    //헌혈기록(ID부분은 이름으로표기) 헌혈일자 기준 오름차순 조회
     @GetMapping
     public ResponseEntity<List<BloodDonationRecordDto>> getAllBloodDonationRecords() {
         List<BloodDonationRecordDto> bloodDonationRecordDtoList = bloodDonationRecordService.getAllBloodDonationRecords();
@@ -32,7 +32,7 @@ public class BloodDonationRecordController {
         return new ResponseEntity<>(bloodDonationRecordDtoList, HttpStatus.OK);
     }
 
-    // 회원 이름별 검색 , 헌혈일자 기준 오름차순
+    // 회원 이름으로 헌혈일자 기준 오름차순 조회
     @GetMapping(params = "memberName")
     public ResponseEntity<List<BloodDonationRecordDto>> getBloodDonationRecordsByMemberName(@RequestParam String memberName) {
         List<BloodDonationRecordDto> bloodDonationRecordDtoList = bloodDonationRecordService.getBloodDonationRecordsByMemberName(memberName);

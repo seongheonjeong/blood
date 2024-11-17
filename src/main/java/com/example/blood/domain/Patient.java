@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "환우")
 public class Patient {
     @Id
@@ -41,6 +39,20 @@ public class Patient {
 
     public List<BloodDonationRecord> getBloodDonationRecords() {
         return bloodDonationRecords;
+    }
+
+    public Patient() {
+    }
+
+    public Patient(String patientId, String name, LocalDate birth, String phoneNumber, String gender, String hospitalName, String diseaseName, List<BloodDonationRecord> bloodDonationRecords) {
+        this.patientId = patientId;
+        this.name = name;
+        this.birth = birth;
+        this.phoneNumber = phoneNumber;
+        this.gender = gender;
+        this.hospitalName = hospitalName;
+        this.diseaseName = diseaseName;
+        this.bloodDonationRecords = bloodDonationRecords;
     }
 
     public void setBloodDonationRecords(List<BloodDonationRecord> bloodDonationRecords) {

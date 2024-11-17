@@ -11,8 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "헌혈자")
 public class Member {
 
@@ -46,6 +44,24 @@ public class Member {
 
     @Column(name = "마지막헌혈일")
     private LocalDate lastDonationDate;
+
+    public Member() {
+    }
+
+    public Member(String memberId, String name, LocalDate birth, String gender, String bloodType, String phoneNumber, String address, int donationCount, LocalDate firstDonationDate, LocalDate lastDonationDate, List<Reservation> reservationList, List<BloodDonationRecord> bloodDonationRecords) {
+        this.memberId = memberId;
+        this.name = name;
+        this.birth = birth;
+        this.gender = gender;
+        this.bloodType = bloodType;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.donationCount = donationCount;
+        this.firstDonationDate = firstDonationDate;
+        this.lastDonationDate = lastDonationDate;
+        this.reservationList = reservationList;
+        this.bloodDonationRecords = bloodDonationRecords;
+    }
 
     public String getMemberId() {
         return memberId;

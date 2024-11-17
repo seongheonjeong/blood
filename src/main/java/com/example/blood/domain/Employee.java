@@ -11,8 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Table(name = "직원")
 public class Employee {
 
@@ -40,6 +39,21 @@ public class Employee {
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
     private List<BloodDonationRecord> bloodDonationRecords = new ArrayList<>();
+
+    public Employee() {
+    }
+
+    public Employee(String employeeId, String name, LocalDate birthDate, String gender, String phoneNumber, String address, List<Reservation> reservationList, List<BloodDonationRecord> bloodDonationRecords) {
+        this.employeeId = employeeId;
+        this.name = name;
+        this.birthDate = birthDate;
+        this.gender = gender;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.reservationList = reservationList;
+        this.bloodDonationRecords = bloodDonationRecords;
+    }
+
     public String getEmployeeId() {
         return employeeId;
     }

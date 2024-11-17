@@ -19,6 +19,9 @@ public class MemberDto {
     private LocalDate firstDonationDate;
     private LocalDate lastDonationDate;
 
+    public MemberDto() {
+    }
+
     public MemberDto(String memberId, String name, LocalDate birth, String gender, String bloodType, String phoneNumber, String address, int donationCount, LocalDate firstDonationDate, LocalDate lastDonationDate) {
         this.memberId = memberId;
         this.name = name;

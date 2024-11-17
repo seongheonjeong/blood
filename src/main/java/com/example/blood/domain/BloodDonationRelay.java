@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "헌혈릴레이")
 public class BloodDonationRelay {
     @Id
@@ -24,6 +22,15 @@ public class BloodDonationRelay {
     private LocalDate end;
     @OneToMany(mappedBy = "bloodDonationRelay", cascade = CascadeType.ALL)
     private List<BloodDonationRecord> bloodDonationRecords = new ArrayList<>();
+    public BloodDonationRelay() {
+    }
+    public BloodDonationRelay(String bloodDonationRelayId, String bloodDonationRelaySession, LocalDate start, LocalDate end, List<BloodDonationRecord> bloodDonationRecords) {
+        this.bloodDonationRelayId = bloodDonationRelayId;
+        this.bloodDonationRelaySession = bloodDonationRelaySession;
+        this.start = start;
+        this.end = end;
+        this.bloodDonationRecords = bloodDonationRecords;
+    }
 
 
     public String getBloodDonationRelayId() {

@@ -1,8 +1,10 @@
 package com.example.blood.dto;
 
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDate;
 
-//이름, 생년월일, 성별, 혈액형, 휴대폰번호, 주소
+
 public class RequestMemberDto {
     private String name;
     private LocalDate birth;
@@ -11,11 +13,8 @@ public class RequestMemberDto {
     private String phoneNumber;
     private String address;
 
-    public RequestMemberDto() {
-    }
 
-    public void setBirth(LocalDate birth) {
-        this.birth = birth;
+    public RequestMemberDto() {
     }
 
     public RequestMemberDto(String name, LocalDate birth, String gender, String bloodType, String phoneNumber, String address) {
@@ -37,6 +36,9 @@ public class RequestMemberDto {
 
     public LocalDate getBirth() {
         return birth;
+    }
+    public void setBirth(LocalDate birth) {
+        this.birth = birth;
     }
 
     public void setDate(LocalDate birth) {

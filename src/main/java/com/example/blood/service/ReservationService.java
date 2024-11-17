@@ -43,7 +43,6 @@ public class ReservationService {
                 .map(this::convertDto)
                 .collect(Collectors.toList());
     }
-
     public List<ReservationCountDto> getReservationCount() {
         return reservationRepository.findReservationCount().stream()
                 .map(reservationCount -> new ReservationCountDto(
@@ -53,5 +52,4 @@ public class ReservationService {
                 ))
                 .collect(Collectors.toList());
     }
-
 }

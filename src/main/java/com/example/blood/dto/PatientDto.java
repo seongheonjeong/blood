@@ -1,5 +1,7 @@
 package com.example.blood.dto;
 
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDate;
 
 public class PatientDto {
@@ -17,6 +19,9 @@ public class PatientDto {
     private String hospitalName;
 
     private String diseaseName;
+
+    public PatientDto() {
+    }
 
     public PatientDto(String patientId, String name, LocalDate birth, String phoneNumber, String gender, String hospitalName, String diseaseName) {
         this.patientId = patientId;
@@ -45,9 +50,6 @@ public class PatientDto {
 
     public LocalDate getBirth() {
         return birth;
-    }
-
-    public PatientDto() {
     }
 
     public void setBirth(LocalDate birth) {

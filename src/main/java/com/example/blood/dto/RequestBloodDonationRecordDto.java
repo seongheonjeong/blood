@@ -1,6 +1,9 @@
 package com.example.blood.dto;
 
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDate;
+
 
 public class RequestBloodDonationRecordDto {
 
@@ -15,12 +18,10 @@ public class RequestBloodDonationRecordDto {
 
     private String donationPatientId;  // 기부 환자 이름
 
-
-
     public RequestBloodDonationRecordDto() {
     }
 
-    public RequestBloodDonationRecordDto( String memberId, String employeeId, LocalDate donationDate, String donationType, Integer donationAmount, String giveaway,String donationPatientId) {
+    public RequestBloodDonationRecordDto(String memberId, String employeeId, LocalDate donationDate, String donationType, Integer donationAmount, String giveaway, String donationPatientId) {
         this.memberId = memberId;
         this.employeeId = employeeId;
         this.donationDate = donationDate;

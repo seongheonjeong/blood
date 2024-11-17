@@ -1,6 +1,9 @@
 package com.example.blood.dto;
 
+import lombok.NoArgsConstructor;
+
 import java.time.LocalDate;
+
 
 public class RequestPatientDto {
     //이름, 생년월일, 휴대폰번호, 성별, 병원이름, 병명

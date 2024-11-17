@@ -13,6 +13,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Transactional
 @Service
 public class MemberService {
     private final MemberRepository memberRepository;
@@ -79,7 +80,6 @@ public class MemberService {
         memberRepository.save(member);
     }
     //이름, 생년월일, 성별, 혈액형, 휴대폰번호, 주소
-    @Transactional
     public void updateMember(String memberId, String name, String birth, String gender, String bloodType, String phoneNumber, String address) {
         Member member = memberRepository.findFirstByMemberId(memberId);
 
