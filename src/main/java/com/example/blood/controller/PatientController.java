@@ -2,6 +2,7 @@ package com.example.blood.controller;
 
 import com.example.blood.dto.DonationDetailsDto;
 import com.example.blood.dto.PatientDto;
+import com.example.blood.dto.RequestPatientDto;
 import com.example.blood.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -56,5 +57,16 @@ public class PatientController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(patients, HttpStatus.OK);
+    }
+
+    //환우 삽입
+    @PostMapping
+    public ResponseEntity<String> addPatient(@RequestBody RequestPatientDto requestPatientDto) {
+        try {
+            patientService.addPatient(requestPatientDto);
+            return new ResponseEntity<>("successfully.", HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>("failed", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }

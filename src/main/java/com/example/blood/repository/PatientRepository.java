@@ -11,4 +11,5 @@ public interface PatientRepository {
     List<Patient> findByPatientName(String patientName);
     List<Patient> findAll();
     List<Object[]> findDonationDetails();
+    void save(Patient patient);
 }

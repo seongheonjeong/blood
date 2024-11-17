@@ -79,7 +79,7 @@ public class BloodDonationRecordService {
         Patient patient = new Patient();
         patient.setPatientId(patientDto.getPatientId());
         patient.setName(patientDto.getName());
-        patient.setBirthDate(patientDto.getBirth());
+        patient.setBirth(patientDto.getBirth());
         patient.setPhoneNumber(patientDto.getPhoneNumber());
         patient.setGender(patientDto.getGender());
         patient.setHospitalName(patientDto.getHospitalName());

@@ -3,9 +3,11 @@ package com.example.blood.service;
 import com.example.blood.domain.Patient;
 import com.example.blood.dto.DonationDetailsDto;
 import com.example.blood.dto.PatientDto;
+import com.example.blood.dto.RequestPatientDto;
 import com.example.blood.repository.PatientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,14 +25,23 @@ public class PatientService {
         return new PatientDto(
                 patient.getPatientId(),
                 patient.getName(),
-                patient.getBirthDate(),
+                patient.getBirth(),
                 patient.getPhoneNumber(),
                 patient.getGender(),
                 patient.getHospitalName(),
                 patient.getDiseaseName()
         );
     }
-
+    private Patient convertToPatient(RequestPatientDto requestPatientDto) {
+        Patient patient=new Patient();
+        patient.setName(requestPatientDto.getName());
+        patient.setBirth(requestPatientDto.getBirth());
+        patient.setGender(requestPatientDto.getGender());
+        patient.setHospitalName(requestPatientDto.getHospitalName());
+        patient.setDiseaseName(requestPatientDto.getDiseaseName());
+        patient.setPhoneNumber(requestPatientDto.getPhoneNumber());
+        return patient;
+    }
     public List<DonationDetailsDto> getDonationDetails() {
         return patientRepository.findDonationDetails().stream()
                 .map(details -> new DonationDetailsDto(
@@ -58,6 +69,11 @@ public class PatientService {
         return patientRepository.findByDiseaseName(diseaseName).stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
+    }
+    @Transactional
+    public void addPatient(RequestPatientDto requestPatientDto) {
+        Patient patient=convertToPatient(requestPatientDto);
+        patientRepository.save(patient);
     }
 }
 

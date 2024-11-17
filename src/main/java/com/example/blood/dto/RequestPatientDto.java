@@ -1,58 +1,26 @@
-package com.example.blood.domain;
-
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+package com.example.blood.dto;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
-@Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@Table(name = "환우")
-public class Patient {
-    @Id
-    @Column(name = "환자ID")
-    private String patientId;
-
-    @Column(name = "이름")
+public class RequestPatientDto {
+    //이름, 생년월일, 휴대폰번호, 성별, 병원이름, 병명
     private String name;
-
-    @Column(name = "생년월일")
     private LocalDate birth;
-
-    @Column(name = "휴대폰번호")
     private String phoneNumber;
-
-    @Column(name = "성별")
     private String gender;
-
-    @Column(name = "병원이름")
     private String hospitalName;
-
-    @Column(name = "병명")
     private String diseaseName;
 
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
-    private List<BloodDonationRecord> bloodDonationRecords = new ArrayList<>();
-
-    public List<BloodDonationRecord> getBloodDonationRecords() {
-        return bloodDonationRecords;
+    public RequestPatientDto() {
     }
 
-    public void setBloodDonationRecords(List<BloodDonationRecord> bloodDonationRecords) {
-        this.bloodDonationRecords = bloodDonationRecords;
-    }
-
-    public String getPatientId() {
-        return patientId;
-    }
-
-    public void setPatientId(String patientId) {
-        this.patientId = patientId;
+    public RequestPatientDto(String name, LocalDate birth, String phoneNumber, String gender, String hospitalName, String diseaseName) {
+        this.name = name;
+        this.birth = birth;
+        this.phoneNumber = phoneNumber;
+        this.gender = gender;
+        this.hospitalName = hospitalName;
+        this.diseaseName = diseaseName;
     }
 
     public String getName() {
