@@ -1,6 +1,7 @@
 package com.example.blood.repository;
 
 import com.example.blood.domain.BloodDonationRecord;
+import com.example.blood.domain.Member;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.ParameterMode;
 import jakarta.persistence.PersistenceContext;
@@ -39,6 +40,14 @@ public class JpaBloodDonationRecordRepository implements BloodDonationRecordRepo
                 .setParameter("bloodDonationRelaySession",bloodDonationRelaySession)
                 .getResultList();
     }
+
+    @Override
+    public BloodDonationRecord findById(Long id) {
+        return entityManager.createQuery("SELECT B FROM BloodDonationRecord B WHERE B.donationRecordId = :donationRecordId", BloodDonationRecord.class)
+                .setParameter("donationRecordId", id)
+                .getSingleResult();
+    }
+
     //
     @Override
     public List<Object[]> findGroupByDonationAmount() {
@@ -67,4 +76,5 @@ public class JpaBloodDonationRecordRepository implements BloodDonationRecordRepo
                 .setParameter("id", bloodDonationRecordId)
                 .executeUpdate();
     }
+
 }

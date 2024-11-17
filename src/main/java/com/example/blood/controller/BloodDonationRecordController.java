@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -78,4 +79,20 @@ public class BloodDonationRecordController {
             return new ResponseEntity<>("failed", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    @PutMapping(params = "donationRecordId")
+    public ResponseEntity<String> updateDonationRecord(
+            @RequestParam Long donationRecordId,
+            @RequestParam(required = false) String employeeId,
+            @RequestParam(required = false) LocalDate donationDate,
+            @RequestParam(required = false) String donationType,
+            @RequestParam(required = false) Integer donationAmount,
+            @RequestParam(required = false) String giveaway) {
+        try {
+            bloodDonationRecordService.updateDonationRecord (donationRecordId, employeeId, donationDate, donationType, donationAmount, giveaway);
+            return new ResponseEntity<>("successfully", HttpStatus.OK); //204
+        } catch (Exception e) {
+            return new ResponseEntity<>("failed", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

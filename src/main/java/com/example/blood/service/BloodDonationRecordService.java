@@ -9,6 +9,8 @@ import com.example.blood.repository.*;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -106,5 +108,19 @@ public class BloodDonationRecordService {
 
     public void deleteBloodDonationRecord(Long bloodDonationRecordId) {
         bloodDonationRecordRepository.deleteById(bloodDonationRecordId);
+    }
+    @Transactional
+    public void updateDonationRecord(Long donationRecordId, String employeeId, LocalDate donationDate, String donationType, Integer donationAmount, String giveaway) {
+        BloodDonationRecord bloodDonationRecord = bloodDonationRecordRepository.findById(donationRecordId);
+        if (employeeId != null) {
+            Employee employee = springDataJpaEmployeeRepository.findFirstByEmployeeId(employeeId);
+            if (employee != null) {
+                bloodDonationRecord.setEmployee(employee);
+            }
+        }
+        if (donationDate != null) bloodDonationRecord.setDonationDate(donationDate);
+        if (donationType != null) bloodDonationRecord.setDonationType(donationType);
+        if (donationAmount != null) bloodDonationRecord.setDonationAmount(donationAmount);
+        if (giveaway != null) bloodDonationRecord.setGiveaway(giveaway);
     }
 }

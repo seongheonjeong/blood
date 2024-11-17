@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -74,6 +75,16 @@ public class PatientService {
     public void addPatient(RequestPatientDto requestPatientDto) {
         Patient patient=convertToPatient(requestPatientDto);
         patientRepository.save(patient);
+    }
+    @Transactional
+    public void updatePatient(String patientId, String name, LocalDate birth, String phoneNumber, String gender, String hospitalName, String diseaseName) {
+        Patient patient=patientRepository.findById(patientId).orElse(null);
+        if (name != null)  patient.setName(name);
+        if (birth != null) patient.setBirth(birth);
+        if (phoneNumber != null) patient.setPhoneNumber(phoneNumber);
+        if (gender != null) patient.setGender(gender);
+        if (hospitalName != null) patient.setHospitalName(hospitalName);
+        if (diseaseName != null) patient.setDiseaseName(diseaseName);
     }
 }
 

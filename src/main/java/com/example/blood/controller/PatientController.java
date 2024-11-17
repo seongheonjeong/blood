@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -65,6 +66,25 @@ public class PatientController {
         try {
             patientService.addPatient(requestPatientDto);
             return new ResponseEntity<>("successfully.", HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>("failed", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    // 환우(이름, 생년월일, 휴대폰번호, 성별, 병원이름, 병명), 환자ID로 갱신할 튜플 선택
+    //환자ID 자동화 대상이므로 갱신 x
+    @PutMapping(params = "patientId")
+    public ResponseEntity<String> updatePatient(
+            @RequestParam String patientId,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) LocalDate birth,
+            @RequestParam(required = false) String phoneNumber,
+            @RequestParam(required = false) String gender,
+            @RequestParam(required = false) String hospitalName,
+            @RequestParam(required = false) String diseaseName) {
+        try {
+            patientService.updatePatient (patientId, name, birth, phoneNumber, gender, hospitalName,diseaseName);
+            return new ResponseEntity<>("successfully", HttpStatus.OK); //204
         } catch (Exception e) {
             return new ResponseEntity<>("failed", HttpStatus.INTERNAL_SERVER_ERROR);
         }
