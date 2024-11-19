@@ -37,7 +37,7 @@ public class Member {
     private String address;
 
     @Column(name = "헌혈횟수")
-    private int donationCount;
+    private Integer donationCount;
 
     @Column(name = "최초헌혈일")
     private LocalDate firstDonationDate;
@@ -48,7 +48,7 @@ public class Member {
     public Member() {
     }
 
-    public Member(String memberId, String name, LocalDate birth, String gender, String bloodType, String phoneNumber, String address, int donationCount, LocalDate firstDonationDate, LocalDate lastDonationDate, List<Reservation> reservationList, List<BloodDonationRecord> bloodDonationRecords) {
+    public Member(String memberId, String name, LocalDate birth, String gender, String bloodType, String phoneNumber, String address, Integer donationCount, LocalDate firstDonationDate, LocalDate lastDonationDate) {
         this.memberId = memberId;
         this.name = name;
         this.birth = birth;
@@ -59,8 +59,6 @@ public class Member {
         this.donationCount = donationCount;
         this.firstDonationDate = firstDonationDate;
         this.lastDonationDate = lastDonationDate;
-        this.reservationList = reservationList;
-        this.bloodDonationRecords = bloodDonationRecords;
     }
 
     public String getMemberId() {
@@ -119,11 +117,11 @@ public class Member {
         this.address = address;
     }
 
-    public int getDonationCount() {
+    public Integer getDonationCount() {
         return donationCount;
     }
 
-    public void setDonationCount(int donationCount) {
+    public void setDonationCount(Integer donationCount) {
         this.donationCount = donationCount;
     }
 
@@ -142,26 +140,4 @@ public class Member {
     public void setLastDonationDate(LocalDate lastDonationDate) {
         this.lastDonationDate = lastDonationDate;
     }
-
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<Reservation> reservationList = new ArrayList<>();
-
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    private List<BloodDonationRecord> bloodDonationRecords = new ArrayList<>();
-    public List<Reservation> getReservationList() {
-        return reservationList;
-    }
-
-    public void setReservationList(List<Reservation> reservationList) {
-        this.reservationList = reservationList;
-    }
-
-    public List<BloodDonationRecord> getBloodDonationRecords() {
-        return bloodDonationRecords;
-    }
-
-    public void setBloodDonationRecords(List<BloodDonationRecord> bloodDonationRecords) {
-        this.bloodDonationRecords = bloodDonationRecords;
-    }
-
 }

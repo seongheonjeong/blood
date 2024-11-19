@@ -23,7 +23,7 @@ public class ReservationController {
     public ReservationController(ReservationService reservationService) {
         this.reservationService = reservationService;
     }
-
+    //예약기록 전체조회 (아이디 부분 이름으로 나오게) (정상동작)
     @GetMapping
     public ResponseEntity<List<ReservationDto>> getAllReservations() {
         List<ReservationDto> reservationDtoList = reservationService.getAllReservations();
@@ -33,7 +33,7 @@ public class ReservationController {
         return new ResponseEntity<>(reservationDtoList, HttpStatus.OK);
     }
 
-    //예약상태별 검색
+    //예약상태별 검색 (정상동작)
     @GetMapping(params = "reservationStatus")
     public ResponseEntity<List<ReservationDto>> getReservationsByReservationStatus(@RequestParam String reservationStatus) {
         List<ReservationDto> reservationDtoList = reservationService.getReservationsByReservationStatus(reservationStatus);
@@ -42,9 +42,9 @@ public class ReservationController {
         }
         return new ResponseEntity<>(reservationDtoList, HttpStatus.OK);
     }
-
+    //해당직원이 담당하는 예약횟수
     @GetMapping("/count")
-    public ResponseEntity<List<ReservationCountDto>> getReservationsByEmployeeName() {
+    public ResponseEntity<List<ReservationCountDto>> getReservationCount() {
         List<ReservationCountDto> reservationCountDtoList = reservationService.getReservationCount();
         if (reservationCountDtoList.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

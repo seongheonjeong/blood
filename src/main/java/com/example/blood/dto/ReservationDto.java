@@ -8,13 +8,10 @@ import java.time.LocalDateTime;
 
 public class ReservationDto {
     private Long reservationId; //예약번호
-
     private LocalDateTime reservationDateTime; //예약일시
     private String reservationStatus; //예약상태
-
     private String memberName;
     private String employeeName;
-
 
     public ReservationDto() {
     }

@@ -42,10 +42,9 @@ public class JpaBloodDonationRecordRepository implements BloodDonationRecordRepo
     }
 
     @Override
-    public BloodDonationRecord findById(Long id) {
-        return entityManager.createQuery("SELECT B FROM BloodDonationRecord B WHERE B.donationRecordId = :donationRecordId", BloodDonationRecord.class)
-                .setParameter("donationRecordId", id)
-                .getSingleResult();
+    public Optional<BloodDonationRecord> findById(Long id) {
+       BloodDonationRecord bloodDonationRecord=entityManager.find(BloodDonationRecord.class,id);
+       return bloodDonationRecord!=null? Optional.of((bloodDonationRecord)) : Optional.empty();
     }
 
     //
@@ -65,16 +64,29 @@ public class JpaBloodDonationRecordRepository implements BloodDonationRecordRepo
         StoredProcedureQuery storedProcedureQuery = entityManager.createStoredProcedureQuery("LAST_BDN2_PLUS_1 ");
         storedProcedureQuery.registerStoredProcedureParameter(1, Long.class, ParameterMode.OUT);
         storedProcedureQuery.execute();
-        Long outParameter=(Long)  storedProcedureQuery.getOutputParameterValue(1);
+        Long outParameter=(Long) storedProcedureQuery.getOutputParameterValue(1);
         bloodDonationRecord.setDonationCertificateNumber(outParameter);
         entityManager.persist(bloodDonationRecord);
     }
 
     @Override
     public void deleteById(Long bloodDonationRecordId) {
+        StoredProcedureQuery storedProcedureQuery1 = entityManager.createStoredProcedureQuery("RET_BDP_BY_BDN1");
+        storedProcedureQuery1.registerStoredProcedureParameter(1, Long.class, ParameterMode.IN);
+        storedProcedureQuery1.setParameter(1, bloodDonationRecordId);
+        storedProcedureQuery1.registerStoredProcedureParameter(2, String.class, ParameterMode.OUT);
+        storedProcedureQuery1.execute();
+        String outParameter=(String) storedProcedureQuery1.getOutputParameterValue(2);
         entityManager.createQuery("DELETE FROM BloodDonationRecord B WHERE B.donationRecordId = :id")
                 .setParameter("id", bloodDonationRecordId)
                 .executeUpdate();
+        firstLastProcedure(outParameter);
     }
-
+    @Override
+    public void firstLastProcedure(String memberId) {
+        StoredProcedureQuery storedProcedureQuery = entityManager.createStoredProcedureQuery("B_DAY_FIRST_LAST");
+        storedProcedureQuery.registerStoredProcedureParameter(1, String.class, ParameterMode.IN);
+        storedProcedureQuery.setParameter(1, memberId);
+        storedProcedureQuery.execute();
+    }
 }

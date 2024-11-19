@@ -4,13 +4,13 @@ public class BloodDonationRankingDto {
 
     private String memberId;
     private String memberName;
-    private int donationCount;
-    private int donationRanking;
+    private Integer donationCount;
+    private Integer donationRanking;
 
     public BloodDonationRankingDto() {
     }
 
-    public BloodDonationRankingDto(String memberId, String memberName, int donationCount, int donationRanking) {
+    public BloodDonationRankingDto(String memberId, String memberName, Integer donationCount, Integer donationRanking) {
         this.memberId = memberId;
         this.memberName = memberName;
         this.donationCount = donationCount;
@@ -33,19 +33,19 @@ public class BloodDonationRankingDto {
         this.memberName = memberName;
     }
 
-    public int getDonationCount() {
+    public Integer getDonationCount() {
         return donationCount;
     }
 
-    public void setDonationCount(int donationCount) {
+    public void setDonationCount(Integer donationCount) {
         this.donationCount = donationCount;
     }
 
-    public int getDonationRanking() {
+    public Integer getDonationRanking() {
         return donationRanking;
     }
 
-    public void setDonationRanking(int donationRanking) {
+    public void setDonationRanking(Integer donationRanking) {
         this.donationRanking = donationRanking;
     }
 }

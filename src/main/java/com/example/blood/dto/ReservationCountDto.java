@@ -8,17 +8,16 @@ public class ReservationCountDto {
 
     private String name;
 
-    private int reservationCount;
+    private Integer reservationCount;
 
     public ReservationCountDto() {
     }
 
-    public ReservationCountDto(String employeeId, String name, int reservationCount) {
+    public ReservationCountDto(String employeeId, String name, Integer reservationCount) {
         this.employeeId = employeeId;
         this.name = name;
         this.reservationCount = reservationCount;
     }
-
 
     public String getEmployeeId() {
         return employeeId;
@@ -36,11 +35,11 @@ public class ReservationCountDto {
         this.name = name;
     }
 
-    public int getReservationCount() {
+    public Integer getReservationCount() {
         return reservationCount;
     }
 
-    public void setReservationCount(int reservationCount) {
+    public void setReservationCount(Integer reservationCount) {
         this.reservationCount = reservationCount;
     }
 }

@@ -15,14 +15,14 @@ public class MemberDto {
     private String bloodType;
     private String phoneNumber;
     private String address;
-    private int donationCount;
+    private Integer donationCount;
     private LocalDate firstDonationDate;
     private LocalDate lastDonationDate;
 
     public MemberDto() {
     }
 
-    public MemberDto(String memberId, String name, LocalDate birth, String gender, String bloodType, String phoneNumber, String address, int donationCount, LocalDate firstDonationDate, LocalDate lastDonationDate) {
+    public MemberDto(String memberId, String name, LocalDate birth, String gender, String bloodType, String phoneNumber, String address, Integer donationCount, LocalDate firstDonationDate, LocalDate lastDonationDate) {
         this.memberId = memberId;
         this.name = name;
         this.birth = birth;
@@ -91,11 +91,11 @@ public class MemberDto {
         this.address = address;
     }
 
-    public int getDonationCount() {
+    public Integer getDonationCount() {
         return donationCount;
     }
 
-    public void setDonationCount(int donationCount) {
+    public void setDonationCount(Integer donationCount) {
         this.donationCount = donationCount;
     }
 

@@ -55,7 +55,10 @@ public class BloodDonationRecord {
     private Patient patient;
 
 
-    public BloodDonationRecord(Long donationRecordId, Member member, Long donationCertificateNumber, Employee employee, LocalDate donationDate, String donationType, int donationAmount, LocalDate expirationDate, String giveaway, BloodDonationRelay bloodDonationRelay, Patient patient) {
+    public BloodDonationRecord() {
+    }
+
+    public BloodDonationRecord(Long donationRecordId, Member member, Long donationCertificateNumber, Employee employee, LocalDate donationDate, String donationType, Integer donationAmount, LocalDate expirationDate, String giveaway, BloodDonationRelay bloodDonationRelay, Patient patient) {
         this.donationRecordId = donationRecordId;
         this.member = member;
         this.donationCertificateNumber = donationCertificateNumber;
@@ -67,9 +70,6 @@ public class BloodDonationRecord {
         this.giveaway = giveaway;
         this.bloodDonationRelay = bloodDonationRelay;
         this.patient = patient;
-    }
-
-    public BloodDonationRecord() {
     }
 
     public Long getDonationRecordId() {
@@ -123,6 +123,7 @@ public class BloodDonationRecord {
     public Integer getDonationAmount() {
         return donationAmount;
     }
+
     public void setDonationAmount(Integer donationAmount) {
         this.donationAmount = donationAmount;
     }

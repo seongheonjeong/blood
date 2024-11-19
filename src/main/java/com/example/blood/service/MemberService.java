@@ -13,7 +13,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Transactional
+
 @Service
 public class MemberService {
     private final MemberRepository memberRepository;
@@ -63,6 +63,7 @@ public class MemberService {
                 ))
                 .collect(Collectors.toList());
     }
+
     public List<MemberDto> getMembersByMemberName(String memberName) {
         return memberRepository.findByName(memberName).stream()
                 .map(this::convertDto)
@@ -79,10 +80,11 @@ public class MemberService {
         Member member = convertToMember(requestMemberDto);
         memberRepository.save(member);
     }
+
     //이름, 생년월일, 성별, 혈액형, 휴대폰번호, 주소
+    @Transactional
     public void updateMember(String memberId, String name, String birth, String gender, String bloodType, String phoneNumber, String address) {
         Member member = memberRepository.findFirstByMemberId(memberId);
-
         if (name != null) member.setName(name);
         if (birth != null) member.setBirth(LocalDate.parse(birth));
         if (gender != null) member.setGender(gender);

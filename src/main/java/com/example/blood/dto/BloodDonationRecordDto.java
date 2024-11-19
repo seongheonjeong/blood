@@ -15,6 +15,23 @@ public class BloodDonationRecordDto {
     private String bloodDonationRelaySession;          // 헌혈 릴레이 회차
     private String donationPatientName;  // 기부 환자 이름
 
+    public BloodDonationRecordDto() {
+    }
+
+    public BloodDonationRecordDto(Long donationRecordId, String memberName, Long donationCertificateNumber, String employeeName, LocalDate donationDate, String donationType, Integer donationAmount, LocalDate expirationDate, String giveaway, String bloodDonationRelaySession, String donationPatientName) {
+        this.donationRecordId = donationRecordId;
+        this.memberName = memberName;
+        this.donationCertificateNumber = donationCertificateNumber;
+        this.employeeName = employeeName;
+        this.donationDate = donationDate;
+        this.donationType = donationType;
+        this.donationAmount = donationAmount;
+        this.expirationDate = expirationDate;
+        this.giveaway = giveaway;
+        this.bloodDonationRelaySession = bloodDonationRelaySession;
+        this.donationPatientName = donationPatientName;
+    }
+
     public Long getDonationRecordId() {
         return donationRecordId;
     }
@@ -100,20 +117,6 @@ public class BloodDonationRecordDto {
     }
 
     public void setDonationPatientName(String donationPatientName) {
-        this.donationPatientName = donationPatientName;
-    }
-
-    public BloodDonationRecordDto(Long donationRecordId, String memberName, Long donationCertificateNumber, String employeeName, LocalDate donationDate, String donationType, int donationAmount, LocalDate expirationDate, String giveaway, String bloodDonationRelaySession, String donationPatientName) {
-        this.donationRecordId = donationRecordId;
-        this.memberName = memberName;
-        this.donationCertificateNumber = donationCertificateNumber;
-        this.employeeName = employeeName;
-        this.donationDate = donationDate;
-        this.donationType = donationType;
-        this.donationAmount = donationAmount;
-        this.expirationDate = expirationDate;
-        this.giveaway = giveaway;
-        this.bloodDonationRelaySession = bloodDonationRelaySession;
         this.donationPatientName = donationPatientName;
     }
 }
