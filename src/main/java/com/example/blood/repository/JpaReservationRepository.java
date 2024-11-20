@@ -27,7 +27,7 @@ public class JpaReservationRepository implements ReservationRepository {
     }
     @Override
     public List<Reservation> findAll() {
-        return entityManager.createQuery("select R from Reservation R", Reservation.class)
+        return entityManager.createQuery("select R from Reservation R order by  R.reservationDateTime", Reservation.class)
                 .getResultList();
     }
 

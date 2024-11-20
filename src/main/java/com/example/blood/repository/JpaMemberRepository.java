@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class JpaMemberRepository implements MemberRepository{
@@ -34,10 +35,9 @@ public class JpaMemberRepository implements MemberRepository{
 
 
     @Override
-    public Member findFirstByMemberId(String memberId) {
-        return entityManager.createQuery("SELECT m FROM Member m WHERE m.memberId = :memberId", Member.class)
-                .setParameter("memberId", memberId)
-                .getSingleResult();
+    public Optional<Member> findFirstByMemberId(String memberId) {
+        Member member=entityManager.find(Member.class,memberId);
+        return member !=null ? Optional.of(member) : Optional.empty();
     }
 
     @Override
@@ -49,8 +49,8 @@ public class JpaMemberRepository implements MemberRepository{
 
     @Override
     public List<Object[]> findBloodDonationRanking() {
-        String sql = "SELECT 회원id, 이름, 헌혈횟수, " +
-                     "DENSE_RANK() OVER (ORDER BY 헌혈횟수 DESC) AS 헌혈랭킹 " +
+        String sql = "SELECT 회원id, 이름, COALESCE(헌혈횟수, 0) AS 헌혈횟수, " +
+                     "DENSE_RANK() OVER (ORDER BY COALESCE(헌혈횟수, 0) DESC) AS 헌혈랭킹 " +
                      "FROM 헌혈자";
         return entityManager.createNativeQuery(sql)
                 .getResultList();

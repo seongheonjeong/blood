@@ -20,7 +20,7 @@ public class MemberController {
     public MemberController(MemberService memberService) {
         this.memberService = memberService;
     }
-
+    //모든 회원 정보 (정상 동작)
     @GetMapping
     public ResponseEntity<List<MemberDto>> getAllMembers() {
         List<MemberDto> memberDtoList = memberService.getAllMembers();
@@ -29,7 +29,7 @@ public class MemberController {
         }
         return new ResponseEntity<>(memberDtoList, HttpStatus.OK);
     }
-
+    //회원 이름으로 조회 (정상 동작)
     @GetMapping(params = "memberName")
     public ResponseEntity<List<MemberDto>> getMembersByMemberName(@RequestParam String memberName) {
         List<MemberDto> memberDtoList = memberService.getMembersByMemberName(memberName);
@@ -47,7 +47,7 @@ public class MemberController {
         }
         return new ResponseEntity<>(memberDtoList, HttpStatus.OK);
     }
-    //헌혈횟수에 따른 랭킹 조회
+    //헌혈횟수에 따른 랭킹 조회 (정상동작)
     @GetMapping("/ranking")
     public ResponseEntity<List<BloodDonationRankingDto>>  getDonationRanking() {
         List<BloodDonationRankingDto> bloodDonationRankingDtoList=memberService.getDonationRanking();
@@ -56,6 +56,7 @@ public class MemberController {
         }
         return new ResponseEntity<>(bloodDonationRankingDtoList,HttpStatus.OK);
     }
+    //회원 삽입 (정상동작)
     @PostMapping
     public ResponseEntity<String> addMember(@RequestBody RequestMemberDto requestMemberDto) {
         try {
@@ -65,6 +66,7 @@ public class MemberController {
             return new ResponseEntity<>("failed", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+    //회원 수정 (정상동작)
     @PutMapping(params = "memberId")
     public ResponseEntity<String> updateMember(
             @RequestParam String memberId,

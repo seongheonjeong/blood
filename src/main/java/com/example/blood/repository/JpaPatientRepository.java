@@ -25,7 +25,7 @@ public class JpaPatientRepository implements PatientRepository {
     @Override
     public Optional<Patient> findById(String id) {
         Patient patient = entityManager.find(Patient.class, id);
-        return patient != null ? Optional.of((patient)) : Optional.empty();
+        return patient != null ? Optional.of(patient) : Optional.empty();
     }
     @Override
     public List<Patient> findByDiseaseName(String diseaseName) {
@@ -42,7 +42,7 @@ public class JpaPatientRepository implements PatientRepository {
     }
     @Override
     public List<Patient> findAll() {
-        return entityManager.createQuery("SELECT p FROM Patient p", Patient.class)
+        return entityManager.createQuery("SELECT p FROM Patient p order by  p.patientId asc", Patient.class)
                 .getResultList();
     }
 

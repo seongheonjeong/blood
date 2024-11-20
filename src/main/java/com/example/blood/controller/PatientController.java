@@ -22,7 +22,7 @@ public class PatientController {
         this.patientService = patientService;
     }
 
-    // 환우 전체 조회
+    // 환우 전체 조회 (정상동작)
     @GetMapping
     public ResponseEntity<List<PatientDto>> getAllPatients() {
         List<PatientDto> patientDtoList = patientService.getAllPatients();
@@ -32,7 +32,7 @@ public class PatientController {
         return new ResponseEntity<>(patientDtoList, HttpStatus.OK);
     }
 
-    // 이름으로 조회
+    // 이름으로 조회 (정상동작)
     @GetMapping(params = "patientName")
     public ResponseEntity<List<PatientDto>> getPatientsByPatientName(@RequestParam String patientName) {
         List<PatientDto> patientDtoList = patientService.getPatientsByPatientName(patientName);
@@ -41,6 +41,7 @@ public class PatientController {
         }
         return new ResponseEntity<>(patientDtoList, HttpStatus.OK);
     }
+    //헌혈증서번호에 대한 회원이름,id , 환우이름,id (동작완료)
     @GetMapping("/details")
     public ResponseEntity<List<DonationDetailsDto>> getDonationDetails() {
         List<DonationDetailsDto> donationDetailsDtoList = patientService.getDonationDetails();
@@ -60,7 +61,7 @@ public class PatientController {
         return new ResponseEntity<>(patients, HttpStatus.OK);
     }
 
-    //환우 삽입
+    //환우 삽입 (정상동작)
     @PostMapping
     public ResponseEntity<String> addPatient(@RequestBody RequestPatientDto requestPatientDto) {
         try {
@@ -72,7 +73,7 @@ public class PatientController {
     }
 
     // 환우(이름, 생년월일, 휴대폰번호, 성별, 병원이름, 병명), 환자ID로 갱신할 튜플 선택
-    //환자ID 자동화 대상이므로 갱신 x
+    //환자ID 자동화 대상이므로 갱신 x (정상동작)
     @PutMapping(params = "patientId")
     public ResponseEntity<String> updatePatient(
             @RequestParam String patientId,

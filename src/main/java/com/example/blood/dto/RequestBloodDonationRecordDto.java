@@ -7,7 +7,6 @@ import java.time.LocalDate;
 
 public class RequestBloodDonationRecordDto {
 
-
     private String memberId; //회원 아이디
     private String employeeId; //담당 직원 아이디
 

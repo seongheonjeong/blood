@@ -58,8 +58,8 @@ public class MemberService {
                 .map(ranking -> new BloodDonationRankingDto(
                         (String) ranking[0], // 회원id
                         (String) ranking[1], // 이름
-                        ((Number) ranking[2]).intValue(), // 헌혈횟수
-                        ((Number) ranking[3]).intValue()  // 헌혈랭킹
+                        ranking[2] != null ? ((Number) ranking[2]).intValue() : 0, // 헌혈횟수
+                        ((Number) ranking[3]).intValue()
                 ))
                 .collect(Collectors.toList());
     }
@@ -84,7 +84,7 @@ public class MemberService {
     //이름, 생년월일, 성별, 혈액형, 휴대폰번호, 주소
     @Transactional
     public void updateMember(String memberId, String name, String birth, String gender, String bloodType, String phoneNumber, String address) {
-        Member member = memberRepository.findFirstByMemberId(memberId);
+        Member member = memberRepository.findFirstByMemberId(memberId).orElse(null);
         if (name != null) member.setName(name);
         if (birth != null) member.setBirth(LocalDate.parse(birth));
         if (gender != null) member.setGender(gender);

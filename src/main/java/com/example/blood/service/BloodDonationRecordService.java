@@ -96,7 +96,7 @@ public class BloodDonationRecordService {
     @Transactional
     public void addBloodDonationRecord(RequestBloodDonationRecordDto inputBloodDonationRecordDto) {
 
-        Member member = memberRepository.findFirstByMemberId(inputBloodDonationRecordDto.getMemberId());
+        Member member = memberRepository.findFirstByMemberId(inputBloodDonationRecordDto.getMemberId()).orElse(null);
         Employee employee=springDataJpaEmployeeRepository.findFirstByEmployeeId(inputBloodDonationRecordDto.getEmployeeId());
         Patient patient = patientRepository.findById(inputBloodDonationRecordDto.getDonationPatientId()).orElse(null);
         BloodDonationRecord bloodDonationRecord=new BloodDonationRecord();
