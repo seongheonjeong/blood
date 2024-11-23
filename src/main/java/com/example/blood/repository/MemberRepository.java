@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface MemberRepository {
-    List<Member> findByPhoneNumber(String phoneNumber);
+
     List<Member> findAll();
     Optional<Member> findFirstByMemberId(String memberId);
 

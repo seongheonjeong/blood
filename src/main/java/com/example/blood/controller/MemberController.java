@@ -39,14 +39,6 @@ public class MemberController {
         return new ResponseEntity<>(memberDtoList, HttpStatus.OK);
     }
 
-    @GetMapping(params = "phoneNumber")
-    public ResponseEntity<List<MemberDto>> getMembersByPhoneNumber(@RequestParam String phoneNumber) {
-        List<MemberDto> memberDtoList = memberService.getMembersByPhoneNumber(phoneNumber);
-        if (memberDtoList.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(memberDtoList, HttpStatus.OK);
-    }
     //헌혈횟수에 따른 랭킹 조회 (정상동작)
     @GetMapping("/ranking")
     public ResponseEntity<List<BloodDonationRankingDto>>  getDonationRanking() {

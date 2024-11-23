@@ -7,7 +7,7 @@ import java.util.Optional;
 public interface BloodDonationRecordRepository {
     List<BloodDonationRecord> findAll();
     List<BloodDonationRecord> findByMemberName(String memberName);
-    List<BloodDonationRecord> findByBloodDonationRelaySession(String bloodDonationRelaySession);
+
 
     Optional<BloodDonationRecord> findById(Long id);
 

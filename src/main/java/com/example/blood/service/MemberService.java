@@ -70,11 +70,6 @@ public class MemberService {
                 .collect(Collectors.toList());
     }
 
-    public List<MemberDto> getMembersByPhoneNumber(String phoneNumber) {
-        return memberRepository.findByPhoneNumber(phoneNumber).stream()
-                .map(this::convertDto)
-                .collect(Collectors.toList());
-    }
     @Transactional
     public void addMember(RequestMemberDto requestMemberDto) {
         Member member = convertToMember(requestMemberDto);

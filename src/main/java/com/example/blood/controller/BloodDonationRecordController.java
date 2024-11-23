@@ -41,15 +41,6 @@ public class BloodDonationRecordController {
         }
         return new ResponseEntity<>(bloodDonationRecordDtoList, HttpStatus.OK);
     }
-    // 헌혈 릴레이 회차별 검색
-    @GetMapping(params = "bloodDonationRelaySession")
-    public ResponseEntity<List<BloodDonationRecordDto>> getBloodDonationRecordsByBloodDonationRelaySession(@RequestParam String bloodDonationRelaySession) {
-        List<BloodDonationRecordDto> bloodDonationRecordDtoList = bloodDonationRecordService.getBloodDonationRecordsByBloodDonationRelaySession(bloodDonationRelaySession);
-        if (bloodDonationRecordDtoList.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(bloodDonationRecordDtoList, HttpStatus.OK);
-    }
     //헌혈종류와 증정품종류별 총헌혈량 검색 (정상동작)
     @GetMapping("/bloodAmount")
     public ResponseEntity<List<DonationAmountDto>>findGroupByDonationAmount() {

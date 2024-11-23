@@ -27,12 +27,6 @@ public class JpaPatientRepository implements PatientRepository {
         Patient patient = entityManager.find(Patient.class, id);
         return patient != null ? Optional.of(patient) : Optional.empty();
     }
-    @Override
-    public List<Patient> findByDiseaseName(String diseaseName) {
-        return entityManager.createQuery("SELECT p FROM Patient p WHERE p.diseaseName = :name", Patient.class)
-                .setParameter("name", diseaseName)
-                .getResultList();
-    }
 
     @Override
     public List<Patient> findByPatientName(String patientName) {

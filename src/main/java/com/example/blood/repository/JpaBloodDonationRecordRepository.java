@@ -34,12 +34,6 @@ public class JpaBloodDonationRecordRepository implements BloodDonationRecordRepo
                 .setParameter("name",memberName)
                 .getResultList();
     }
-    @Override
-    public List<BloodDonationRecord>findByBloodDonationRelaySession(String bloodDonationRelaySession) {
-        return entityManager.createQuery("select B from BloodDonationRecord B where B.bloodDonationRelay.bloodDonationRelaySession=:bloodDonationRelaySession ",BloodDonationRecord.class)
-                .setParameter("bloodDonationRelaySession",bloodDonationRelaySession)
-                .getResultList();
-    }
 
     @Override
     public Optional<BloodDonationRecord> findById(Long id) {

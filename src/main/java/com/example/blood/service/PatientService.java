@@ -65,12 +65,6 @@ public class PatientService {
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
     }
-
-    public List<PatientDto> getPatientsByDiseaseName(String diseaseName) {
-        return patientRepository.findByDiseaseName(diseaseName).stream()
-                .map(this::convertToDto)
-                .collect(Collectors.toList());
-    }
     @Transactional
     public void addPatient(RequestPatientDto requestPatientDto) {
         Patient patient=convertToPatient(requestPatientDto);

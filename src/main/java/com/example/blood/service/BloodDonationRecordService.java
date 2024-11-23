@@ -65,11 +65,6 @@ public class BloodDonationRecordService {
                 .collect(Collectors.toList());
     }
     //JPA 헌혈기록 헌혈회차별 조회
-    public List<BloodDonationRecordDto> getBloodDonationRecordsByBloodDonationRelaySession(String bloodDonationRelaySession) {
-        return bloodDonationRecordRepository.findByBloodDonationRelaySession(bloodDonationRelaySession).stream()
-                .map(this::convertRecordtDto)
-                .collect(Collectors.toList());
-    }
     //객체가 null값을 못받길래 object 배열사용
     //stream객체 생성 -> map 메서드 통한 변환(for문 안써도 됨 간편하게 변환 가능) -> 스트림 다시 List로 변환
     public List<DonationAmountDto> findGroupByDonationAmount() {
@@ -80,18 +75,6 @@ public class BloodDonationRecordService {
                         groupRecord[2] != null ? ((Number) groupRecord[2]).intValue() : 0 // 헌혈량
                 ))
                 .collect(Collectors.toList());
-    }
-    //PatientDto를 Patient로 변환
-    public Patient convertToPatient(PatientDto patientDto) {
-        Patient patient = new Patient();
-        patient.setPatientId(patientDto.getPatientId());
-        patient.setName(patientDto.getName());
-        patient.setBirth(patientDto.getBirth());
-        patient.setPhoneNumber(patientDto.getPhoneNumber());
-        patient.setGender(patientDto.getGender());
-        patient.setHospitalName(patientDto.getHospitalName());
-        patient.setDiseaseName(patientDto.getDiseaseName());
-        return patient;
     }
     @Transactional
     public void addBloodDonationRecord(RequestBloodDonationRecordDto inputBloodDonationRecordDto) {

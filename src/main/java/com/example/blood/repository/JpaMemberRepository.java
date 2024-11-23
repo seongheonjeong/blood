@@ -21,13 +21,6 @@ public class JpaMemberRepository implements MemberRepository{
     }
 
     @Override
-    public List<Member> findByPhoneNumber(String phoneNumber) {
-        return entityManager.createQuery("SELECT m FROM Member m WHERE m.phoneNumber = :phoneNumber", Member.class)
-                .setParameter("phoneNumber", phoneNumber)
-                .getResultList();
-    }
-
-    @Override
     public List<Member> findAll() {
         return entityManager.createQuery("SELECT m FROM Member m order by m.memberId", Member.class)
                 .getResultList();

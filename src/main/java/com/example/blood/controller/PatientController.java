@@ -51,16 +51,6 @@ public class PatientController {
         return new ResponseEntity<>(donationDetailsDtoList, HttpStatus.OK);
     }
 
-    // 병명으로 조회
-    @GetMapping(params = "diseaseName")
-    public ResponseEntity<List<PatientDto>> getPatientsByDiseaseName(@RequestParam String diseaseName) {
-        List<PatientDto> patients = patientService.getPatientsByDiseaseName(diseaseName);
-        if (patients.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(patients, HttpStatus.OK);
-    }
-
     //환우 삽입 (정상동작)
     @PostMapping
     public ResponseEntity<String> addPatient(@RequestBody RequestPatientDto requestPatientDto) {
