@@ -9,7 +9,7 @@ public class BloodDonationRecordDto {
     private String employeeName;         // 담당 직원 이름
     private LocalDate donationDate;      // 헌혈일자
     private String donationType;         // 헌혈종류
-    private Integer donationAmount;      // 헌혈량
+    private String donationAmount;      // 헌혈량
     private LocalDate expirationDate;    // 유효기간
     private String giveaway;         // 증정품
     private String bloodDonationRelaySession;          // 헌혈 릴레이 회차
@@ -18,7 +18,7 @@ public class BloodDonationRecordDto {
     public BloodDonationRecordDto() {
     }
 
-    public BloodDonationRecordDto(Long donationRecordId, String memberName, Long donationCertificateNumber, String employeeName, LocalDate donationDate, String donationType, Integer donationAmount, LocalDate expirationDate, String giveaway, String bloodDonationRelaySession, String donationPatientName) {
+    public BloodDonationRecordDto(Long donationRecordId, String memberName, Long donationCertificateNumber, String employeeName, LocalDate donationDate, String donationType, String donationAmount, LocalDate expirationDate, String giveaway, String bloodDonationRelaySession, String donationPatientName) {
         this.donationRecordId = donationRecordId;
         this.memberName = memberName;
         this.donationCertificateNumber = donationCertificateNumber;
@@ -80,11 +80,11 @@ public class BloodDonationRecordDto {
         this.donationType = donationType;
     }
 
-    public Integer getDonationAmount() {
+    public String getDonationAmount() {
         return donationAmount;
     }
 
-    public void setDonationAmount(Integer donationAmount) {
+    public void setDonationAmount(String donationAmount) {
         this.donationAmount = donationAmount;
     }
 

@@ -22,7 +22,7 @@ public class BloodDonationRecordController {
         this.bloodDonationRecordService = bloodDonationRecordService;
     }
 
-    //헌혈기록(ID부분은 이름으로표기) 헌혈일자 기준 오름차순 조회 (정상동작)
+    //헌혈기록(ID 부분은 이름으로표기,환자이름 암호화,헌혈량 ml 표기) 헌혈일자 기준 오름차순 조회 (완)
     @GetMapping
     public ResponseEntity<List<BloodDonationRecordDto>> getAllBloodDonationRecords() {
         List<BloodDonationRecordDto> bloodDonationRecordDtoList = bloodDonationRecordService.getAllBloodDonationRecords();
@@ -32,7 +32,7 @@ public class BloodDonationRecordController {
         return new ResponseEntity<>(bloodDonationRecordDtoList, HttpStatus.OK);
     }
 
-    // 회원 이름으로 헌혈일자 기준 오름차순 조회 (정상동작)
+    // 회원 이름으로 헌혈일자 기준 오름차순 조회 (완)
     @GetMapping(params = "memberName")
     public ResponseEntity<List<BloodDonationRecordDto>> getBloodDonationRecordsByMemberName(@RequestParam String memberName) {
         List<BloodDonationRecordDto> bloodDonationRecordDtoList = bloodDonationRecordService.getBloodDonationRecordsByMemberName(memberName);
@@ -41,7 +41,7 @@ public class BloodDonationRecordController {
         }
         return new ResponseEntity<>(bloodDonationRecordDtoList, HttpStatus.OK);
     }
-    //헌혈종류와 증정품종류별 총헌혈량 검색 (정상동작)
+    //헌혈종류와 증정품종류별 총헌혈량 검색 , 총 헌혈량은 L단위(완)
     @GetMapping("/bloodAmount")
     public ResponseEntity<List<DonationAmountDto>>findGroupByDonationAmount() {
         List<DonationAmountDto> donationAmountDtoList = bloodDonationRecordService.findGroupByDonationAmount();
@@ -50,7 +50,7 @@ public class BloodDonationRecordController {
         }
         return new ResponseEntity<>(donationAmountDtoList, HttpStatus.OK);
     }
-    //헌혈기록 삽입 (정상동작)
+    //헌혈기록 삽입 (최초헌혈일,마지막 헌혈일 수정일 테스트 등 나머지 작동) (완)
     @PostMapping
     public ResponseEntity<String> addBloodDonationRecord(@RequestBody RequestBloodDonationRecordDto inputBloodDonationRecordDto) {
         try {
@@ -61,7 +61,7 @@ public class BloodDonationRecordController {
         }
 
     }
-    //헌혈기록번호를 통한 삭제 (정상동작)
+    //헌혈기록번호를 통한 삭제 (최초,마지막 헌혈일 수정되는거 확인) (완)
     @DeleteMapping (params = "bloodDonationRecordId")
     public ResponseEntity<String> deleteBloodDonationRecord(@RequestParam Long bloodDonationRecordId) {
         try {
@@ -71,7 +71,7 @@ public class BloodDonationRecordController {
             return new ResponseEntity<>("failed", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    //헌혈기록 수정 (정상동작)
+    //헌혈기록 수정(헌혈최초마지막 확인,릴레이기간 확인) (완)
     @PutMapping(params = "bloodDonationRecordId")
     public ResponseEntity<String> updateDonationRecord(
             @RequestParam Long bloodDonationRecordId,

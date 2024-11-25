@@ -28,6 +28,24 @@ public class BloodDonationRecordService {
     private final SpringDataJpaEmployeeRepository springDataJpaEmployeeRepository;
     @PersistenceContext
     EntityManager entityManager;
+    
+    //이름 암호화
+    private String encryptName(String name) {
+        return name.charAt(0) + "**";
+    }
+    private String toStringtDonationAmountToLiter(Object donationAmount) {
+        if (donationAmount == null) {
+            return "0L"; //null값일시
+        }
+        double liter = ((Number) donationAmount).doubleValue() / 1000.0;
+        return Double.toString(liter)+"L";
+    }
+    private String toStringDonationAmountToMil(Integer donationAmount) {
+        if (donationAmount == null) {
+            return "0ml"; // null 값 처리
+        }
+        return donationAmount + "ml";
+    }
     @Autowired
     public BloodDonationRecordService(BloodDonationRecordRepository bloodDonationRecordRepository,SpringDataJpaEmployeeRepository springDataJpaEmployeeRepository, SpringDataJpaBloodDonationRelay springDataJpaBloodDonationRelay,  MemberRepository memberRepository, PatientRepository patientRepository) {
         this.bloodDonationRecordRepository = bloodDonationRecordRepository;
@@ -37,7 +55,7 @@ public class BloodDonationRecordService {
     }
 
     //BloodDonationRecord=>BloodDonationRecordDto로 변환
-    public BloodDonationRecordDto convertRecordtDto(BloodDonationRecord bloodDonationRecord) {
+    public BloodDonationRecordDto convertRecordDto(BloodDonationRecord bloodDonationRecord) {
         return new BloodDonationRecordDto(
                 bloodDonationRecord.getDonationRecordId(),
                 bloodDonationRecord.getMember().getName(),
@@ -45,23 +63,23 @@ public class BloodDonationRecordService {
                 bloodDonationRecord.getEmployee().getName(),
                 bloodDonationRecord.getDonationDate(),
                 bloodDonationRecord.getDonationType(),
-                bloodDonationRecord.getDonationAmount() != null ? bloodDonationRecord.getDonationAmount() : 0,
+                toStringDonationAmountToMil(bloodDonationRecord.getDonationAmount()),
                 bloodDonationRecord.getExpirationDate(),
                 bloodDonationRecord.getGiveaway(),
                 bloodDonationRecord.getBloodDonationRelay() != null ? bloodDonationRecord.getBloodDonationRelay().getBloodDonationRelaySession() : null,
-                bloodDonationRecord.getPatient().getName()
+                encryptName(bloodDonationRecord.getPatient().getName())
         );
     }
     //JPA 헌혈기록 전체조회
     public List<BloodDonationRecordDto> getAllBloodDonationRecords() {
         return bloodDonationRecordRepository.findAll().stream()
-                .map(this::convertRecordtDto)
+                .map(this::convertRecordDto)
                 .collect(Collectors.toList());
     }
     //JPA 헌혈기록 회원이름으로 조회
     public List<BloodDonationRecordDto> getBloodDonationRecordsByMemberName(String memberName) {
         return bloodDonationRecordRepository.findByMemberName(memberName).stream()
-                .map(this::convertRecordtDto)
+                .map(this::convertRecordDto)
                 .collect(Collectors.toList());
     }
     //JPA 헌혈기록 헌혈회차별 조회
@@ -72,7 +90,7 @@ public class BloodDonationRecordService {
                 .map(groupRecord -> new DonationAmountDto(
                         groupRecord[0] != null ? (String) groupRecord[0] : "전체헌혈종류", //헌혈종류
                         groupRecord[1] != null ? (String) groupRecord[1] : "전체증정품종류", // 증점품종류
-                        groupRecord[2] != null ? ((Number) groupRecord[2]).intValue() : 0 // 헌혈량
+                        toStringtDonationAmountToLiter(groupRecord[2])
                 ))
                 .collect(Collectors.toList());
     }

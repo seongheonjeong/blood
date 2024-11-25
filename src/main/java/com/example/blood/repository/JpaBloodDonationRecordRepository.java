@@ -28,6 +28,7 @@ public class JpaBloodDonationRecordRepository implements BloodDonationRecordRepo
         return entityManager.createQuery("select B from BloodDonationRecord B order by  B.donationDate", BloodDonationRecord.class)
                 .getResultList();
     }
+
     @Override
     public List<BloodDonationRecord> findByMemberName(String memberName) {
         return entityManager.createQuery("select B from BloodDonationRecord B where B.member.name=:name order by  B.donationDate ",BloodDonationRecord.class)

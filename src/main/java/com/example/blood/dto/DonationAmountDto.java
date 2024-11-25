@@ -4,12 +4,12 @@ public class DonationAmountDto {
 
     private String donationType;
     private String giveaway;
-    private Integer totalAmount;
+    private String totalAmount;
 
     public DonationAmountDto() {
     }
 
-    public DonationAmountDto(String donationType, String giveaway, Integer totalAmount) {
+    public DonationAmountDto(String donationType, String giveaway, String totalAmount) {
         this.donationType = donationType;
         this.giveaway = giveaway;
         this.totalAmount = totalAmount;
@@ -31,11 +31,11 @@ public class DonationAmountDto {
         this.giveaway = giveaway;
     }
 
-    public Integer getTotalAmount() {
+    public String getTotalAmount() {
         return totalAmount;
     }
 
-    public void setTotalAmount(Integer totalAmount) {
+    public void setTotalAmount(String totalAmount) {
         this.totalAmount = totalAmount;
     }
 }
