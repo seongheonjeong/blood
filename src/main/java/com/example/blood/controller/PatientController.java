@@ -42,7 +42,7 @@ public class PatientController {
         return new ResponseEntity<>(patientDtoList, HttpStatus.OK);
     }
     //헌혈증서번호에 대한 회원이름,id , 환우이름,id (동작완료)
-    @GetMapping("/details")
+    @GetMapping("/donationCertificateNumber")
     public ResponseEntity<List<DonationDetailsDto>> getDonationDetails() {
         List<DonationDetailsDto> donationDetailsDtoList = patientService.getDonationDetails();
         if (donationDetailsDtoList.isEmpty()) {
